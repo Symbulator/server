@@ -1362,7 +1362,10 @@ _ELEMENT_KEYS = [
 
 # Units for the special tools' named answers.
 _TOOL_UNITS = {"vth": "V", "ino": "A", "req": "ohm", "zeq": "ohm",
-               "pmax": "W"}
+               "pmax": "W",
+               # #292: the three load quantities. Symbolic in `load`, so
+               # the unit is only ever appended once a value is put in.
+               "irl": "A", "vrl": "V", "prl": "W", "aprl": "W"}
 # Two-port parameter matrices carry mixed units by construction: z is
 # all impedances, y all admittances, h and g are mixed, and a/b are
 # dimensionless ratios mixed with the two. Rather than mislabel them,
@@ -1379,6 +1382,11 @@ _TOOL_LABELS = {
     "vth": "Thevenin voltage", "ino": "Norton current",
     "req": "equivalent resistance", "zeq": "equivalent impedance",
     "pmax": "maximum deliverable power",
+    # #292: the calculator's answers for a load connected to the
+    # equivalent (v8's th, after "Interested? [y/n]"), in its words.
+    "irl": "current in load", "vrl": "voltage drop in load",
+    "prl": "power consumed in load",
+    "aprl": "average power consumed in load",
 }
 
 # Same idea for the two-port (port) tool: one textbook description per
@@ -1424,6 +1432,48 @@ _UNIT_PLAIN = {"ohm": "\u03a9"}   # plain text is UTF-8, so use the real symbol
 #: units pass through it unmapped. Longest first, so "VA" is matched
 #: before "V" and no stray "A" is left behind.
 _UNIT_SUFFIXES = ("VA", "ohm", "Ω", "Hz", "V", "A", "W", "S", "F", "H")
+
+
+def _load_answers(ino, z, domain: str, use_rms: bool):
+    """#292: what the th tool hands over for a load on its terminals.
+
+    Version 8's th script, once it had the equivalent, asked *"If you are
+    planning to analyze a load connected to this equivalent ... Interested?
+    [y/n]"* and on yes defined three expressions in the variable `load`:
+
+        irl = ino*req/(load+req)               current in the load
+        vrl = load*ino*req/(load+req)          voltage drop in the load
+        prl = load*ino^2*req^2/(load+req)^2    power consumed in the load
+
+    and in AC and FD the same with zeq, the power taken as the real part
+    of S = V I* -- called `prl` for RMS phasors and `aprl` (average) for
+    peak ones, with the extra half. Those are the calculator's formulas
+    as decoded from `v8_programs.txt`, not re-derived; the version 9 port
+    had dropped the whole branch and the tutorial was made to work around
+    it by typing `vth/(req+2)` by hand.
+
+    Returns [(name, expr)], in the calculator's order. An unbounded Norton
+    current (a source with nothing in series) has no load formulas: the
+    current in the load is then vth/load, which the formulas above cannot
+    express through ino, so the list is empty and the card shows nothing
+    extra rather than three infinities."""
+    import sympy as sp
+    if ino in (sp.oo, -sp.oo, sp.zoo):
+        return []
+    load = sp.Symbol("load")
+    if domain == "dc":
+        irl = ino * z / (load + z)
+        vrl = load * ino * z / (load + z)
+        prl = load * ino**2 * z**2 / (load + z)**2
+        return [("irl", sp.simplify(irl)), ("vrl", sp.simplify(vrl)),
+                ("prl", sp.simplify(prl))]
+    irl = ino * z / (load + z)
+    vrl = ino * load * z / (load + z)
+    s_load = (ino * sp.conjugate(ino) * load * z * sp.conjugate(z)
+              / ((load + z) * (sp.conjugate(load) + sp.conjugate(z))))
+    power = sp.re(s_load) if use_rms else sp.re(s_load) / 2
+    return [("irl", sp.simplify(irl)), ("vrl", sp.simplify(vrl)),
+            ("prl" if use_rms else "aprl", sp.simplify(power))]
 
 
 def _without_unit(text: str) -> str:
@@ -2073,6 +2123,7 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
             if extra_conditions:
                 tkw["conditions"] = extra_conditions
             named = []          # [(display key, expr)]
+            load_named = []     # #292: the same, for a load on the port
             if tool == "th":
                 eq = th(desc, n1, n2, **tkw)
                 # th() sets this when the short-circuit round had to
@@ -2086,6 +2137,7 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
                 z_label = "req" if domain == "dc" else "zeq"
                 named = [("vth", eq.vth), ("ino", eq.ino),
                          (z_label, eq.z), ("pmax", eq.pmax)]
+                load_named = _load_answers(eq.ino, eq.z, domain, use_rms)
             elif tool == "er":
                 z_label = "req" if domain == "dc" else "zeq"
                 named = [(z_label, er(desc, n1, n2, **tkw))]
@@ -2093,8 +2145,9 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
                 pp = port(desc, n1, n2, kind, **tkw)
                 named = [(f"{kind}{ij}", pp[ij])
                          for ij in ("11", "12", "21", "22")]
-            answers, flat = [], {}
-            for key, expr in named:
+            answers, load_answers, flat = [], [], {}
+            load_keys = {key for key, _ in load_named}
+            for key, expr in named + load_named:
                 unit = _TOOL_UNITS.get(key, _PORT_UNITS.get(kind, "")
                                        if tool == "port" else "")
                 if tool == "port":
@@ -2102,8 +2155,13 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
                 else:
                     label = _TOOL_LABELS.get(key, "")
                 plain, latex = fmt0(expr, unit)
-                answers.append({"name": key, "label": label,
-                                "plain": plain, "latex": latex})
+                shown = {"name": key, "label": label,
+                         "plain": plain, "latex": latex}
+                # #292: the load answers travel apart from the four, so
+                # the page can show them only when the reader has said a
+                # load is connected -- but they are in `values` either way,
+                # so `irl` with `load = 2` works in Evaluate regardless.
+                (load_answers if key in load_keys else answers).append(shown)
                 # The raw expression, not the formatted string. `values` is
                 # what the Evaluate and Solve cards substitute into and what
                 # a downloaded file records, and the normal solve path below
@@ -2115,6 +2173,7 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
                 # display with units off.
                 flat[key] = str(expr)
             return _ok({"nodes": [], "elements": [], "extras": answers,
+                        "load_extras": load_answers,
                         "values": flat, "equations": [], "notes": _notes,
                         "approx": approx, "approx_forced": approx_forced})
 

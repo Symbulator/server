@@ -635,15 +635,17 @@ j,0,2,2
 r1,2,3,1
 
 analysis: dc
-note: Find the Thévenin equivalent left of a-b, then the current through RL for values of 6, 16 and 36 ohm. The Evaluate line answers the 6 ohm load; for the other two, evaluate vth/(req+16) and vth/(req+36): 1.5 A and 0.75 A.
+note: Find the Thévenin equivalent left of a-b, then the current through RL for values of 6, 16 and 36 ohm. The load question comes ticked; the Evaluate line reads irl at load = 6, and with load = 16 and load = 36 it gives 1.5 A and 0.75 A.
 image: https://learn.symbulator.com/assets/practice/as2s-example-4-8-38.jpg [475px]
 tool: th
 n1: 3
 n2: 0
+with_load: yes
 rounding: approx
 si: no
 units: yes
-evaluate: vth/(req+6)
+evaluate: irl
+evaluate_conditions: load = 6
 
 
 [Bo2's Example 3.10]
@@ -655,15 +657,17 @@ r12,1,2,1/4
 j,2,0,v1/2
 
 analysis: dc
-note: Find the Norton equivalent left of a-b, then the voltage drop and current of the 1/4 ohm resistor. The Evaluate line gives the drop, 21/50 V; for the load current, evaluate vth/(req+1/4): 42/25 A.
+note: Find the Norton equivalent left of a-b, then the voltage drop and current of the 1/4 ohm resistor. The load question comes ticked; the Evaluate line reads vrl at load = 1/4, 21/50 V, and irl with the same condition is 42/25 A.
 image: https://learn.symbulator.com/assets/practice/bo2s-example-3-10-39.jpg
 tool: th
 n1: 2
 n2: 0
+with_load: yes
 rounding: exact
 si: no
 units: yes
-evaluate: vth*(1/4)/(req+1/4)
+evaluate: vrl
+evaluate_conditions: load = 1/4
 
 
 [RM3's Example 9-7]
@@ -674,15 +678,17 @@ j,0,2,5'm
 r2,2,0,2'k
 
 analysis: dc
-note: Find the Norton equivalent external to RL, then the load current for RL of 0, 2 kohm and 5 kohm. The Evaluate line answers the shorted load; for the other loads, evaluate vth/(req+2000) and vth/(req+5000): .00321 A and .00173 A.
+note: Find the Norton equivalent external to RL, then the load current for RL of 0, 2 kohm and 5 kohm. The load question comes ticked; the Evaluate line reads irl at load = 0, and with load = 2000 and load = 5000 it gives .00321 A and .00173 A.
 image: https://learn.symbulator.com/assets/practice/rm3s-example-9-7-40.jpg
 tool: th
 n1: 2
 n2: 0
+with_load: yes
 rounding: approx
 si: no
 units: yes
-evaluate: vth/(req+0)
+evaluate: irl
+evaluate_conditions: load = 0
 
 
 [Bo2's Example 3.5]
@@ -696,15 +702,17 @@ j,4,0,3
 r40,4,0,5
 
 analysis: dc
-note: Find the Norton equivalent external to the 1 ohm resistor, then — on the Evaluate line — the voltage drop across that resistor: -1 V.
+note: Find the Norton equivalent external to the 1 ohm resistor, then — vrl on the Evaluate line, with load = 1, the load question ticked — the voltage drop across that resistor: -1 V.
 image: https://learn.symbulator.com/assets/practice/bo2s-example-3-5-41.jpg
 tool: th
 n1: 3
 n2: 0
+with_load: yes
 rounding: exact
 si: no
 units: yes
-evaluate: vth*1/(req+1)
+evaluate: vrl
+evaluate_conditions: load = 1
 
 
 [RM3's Example 9-13]
@@ -717,15 +725,17 @@ r3,0,4,800
 e3,2,4,80
 
 analysis: dc
-note: The book asks for Millman's Theorem; in Symbulator it is simply the Thévenin equivalent between nodes 2 and 0. Find it, then — on the Evaluate line — the current in the 192 ohm load: 0.1 A.
+note: The book asks for Millman's Theorem; in Symbulator it is simply the Thévenin equivalent between nodes 2 and 0. Find it, then — irl on the Evaluate line, with load = 192, the load question ticked — the current in the 192 ohm load: 0.1 A.
 image: https://learn.symbulator.com/assets/practice/rm3s-example-9-13-42.jpg [587px]
 tool: th
 n1: 2
 n2: 0
+with_load: yes
 rounding: 3
 si: no
 units: yes
-evaluate: vth/(req+192)
+evaluate: irl
+evaluate_conditions: load = 192
 
 
 [Bo2's Example 3.7]
@@ -738,15 +748,17 @@ j32,3,2,15
 j30,3,0,15
 
 analysis: dc
-note: Find the Thévenin equivalent left of a-b, then the voltage across the 3 ohm resistor (the Evaluate line: 18 V). For the 6 ohm load, evaluate vth*6/(req+6): 22.5 V.
+note: Find the Thévenin equivalent left of a-b, then the voltage across the 3 ohm resistor: with the load question ticked, vrl on the Evaluate line at load = 3 is 18 V. For the 6 ohm load, change the condition to load = 6: 22.5 V.
 image: https://learn.symbulator.com/assets/practice/bo2s-example-3-7-43.jpg
 tool: th
 n1: 2
 n2: 0
+with_load: yes
 rounding: exact
 si: no
 units: yes
-evaluate: vth*3/(req+3)
+evaluate: vrl
+evaluate_conditions: load = 3
 
 
 [Bo2's Drill Exercise 3.7]
@@ -758,15 +770,17 @@ r6,2,0,6
 r2,2,3,2
 
 analysis: dc
-note: Find the Thévenin equivalent left of a-b, then — on the Evaluate line — the voltage v across the 5 ohm load: 3.75 V.
+note: Find the Thévenin equivalent left of a-b, then — vrl on the Evaluate line, with load = 5, the load question ticked — the voltage v across the 5 ohm load: 3.75 V.
 image: https://learn.symbulator.com/assets/practice/bo2s-drill-exercise-3-7-44.jpg [465px]
 tool: th
 n1: 3
 n2: 0
+with_load: yes
 rounding: 3
 si: no
 units: yes
-evaluate: vth*5/(req+5)
+evaluate: vrl
+evaluate_conditions: load = 5
 
 
 [RM3's Practice Problem 9.5]
@@ -778,15 +792,17 @@ e2,3,0,70
 r3,2,4,30'k
 
 analysis: dc
-note: Find the Norton equivalent between nodes 4 and 0, then the load current at four load values. The Evaluate line answers the shorted load; for the others, evaluate ino*req/(req+1e4), ino*req/(req+5e4) and ino*req/(req+1e5): .000808, .000457 and .000296 A.
+note: Find the Norton equivalent between nodes 4 and 0, then the load current at four load values. The load question comes ticked; the Evaluate line reads irl at load = 0, and with load = 1e4, load = 5e4 and load = 1e5 it gives .000808, .000457 and .000296 A.
 image: https://learn.symbulator.com/assets/practice/rm3s-practice-problem-9-5-45.jpg
 tool: th
 n1: 4
 n2: 0
+with_load: yes
 rounding: approx
 si: no
 units: yes
-evaluate: ino*req/(req+0)
+evaluate: irl
+evaluate_conditions: load = 0
 
 
 [AS2's Example 4.13]
@@ -834,15 +850,17 @@ j,0,1,10'm
 rs,1,0,40'k
 
 analysis: dc
-note: Find the load for maximum power (req, 40 kohm; pmax, 1 W), then the power received by a 68 kohm load (the Evaluate line: .93 W). For the 8.2k load, evaluate vth^2*8200./(req+8200.)^2: .57 W.
+note: Find the load for maximum power (req, 40 kohm; pmax, 1 W), then the power received by a 68 kohm load: with the load question ticked, prl on the Evaluate line at load = 68000 is .93 W. For the 8.2k load, change the condition to load = 8200: .57 W.
 image: https://learn.symbulator.com/assets/practice/b11s-example-9-15-48.jpg [434px]
 tool: th
 n1: 1
 n2: 0
+with_load: yes
 rounding: 3
 si: no
 units: yes
-evaluate: vth^2*68000./(req+68000.)^2
+evaluate: prl
+evaluate_conditions: load = 68000.
 
 
 [B11's Example 9.17]

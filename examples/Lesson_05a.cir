@@ -328,15 +328,17 @@ e,1,0,1.5
 rs,1,2,2'k
 
 analysis: dc
-note: The bare source of circuit (b): find its maximum power and the power a 1 kohm load would draw. The chapter writes the load power as prL|L=1000, which version 9 has no equivalent for; this is the algebraic form Lesson 4 uses.
+note: The bare source of circuit (b): find its maximum power and the power a 1 kohm load would draw. The load question comes ticked, and the Evaluate line reads prl at load = 1000, the chapter's prL|L=1000.
 image: https://learn.symbulator.com/assets/practice/tr5s-figure-4-32-voltage-follower-21.jpg
 tool: th
 n1: 2
 n2: 0
+with_load: yes
 rounding: 5
 si: no
 units: yes
-evaluate: vth^2*1000/(req+1000)^2
+evaluate: prl
+evaluate_conditions: load = 1000
 
 
 [TR5's Figure 4-32 (Voltage Follower, buffered)]

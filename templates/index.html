@@ -37,7 +37,7 @@ window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'glo
 //
 // The <script> written below is parser-blocking on purpose: see
 // pack_block() in tools/i18n.py for why it cannot be a fetch.
-window.SYMB_I18N_V = "946135af63";
+window.SYMB_I18N_V = "c65be50f6c";
 // Rewritten to a relative path by build_local.py: the offline page
 // sits at the root of its own folder, and the server serves the
 // app at / and the Numerical Solver at /eqsheet/, so only a
@@ -298,7 +298,7 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
     --note-bg: #3c344b;
     --note-line: #7b6276;
   }
-  /* Warm pink */
+  /* Warm Pink */
   html[data-palette="warmpink"] {
     --navy: #5c1a45;
     --navy-2: #6c2654;
@@ -613,7 +613,7 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
     --note-bg: #32281e;
     --note-line: #6a5236;
   }
-  /* Gray & gold */
+  /* Gray & Gold */
   html[data-palette="graygold"] {
     --navy: #3b4048;
     --navy-2: #484e57;
@@ -2189,13 +2189,14 @@ variables: v_2
 rounding: exact
 si: no
 units: yes</pre>
-      <p style="font-size:.88rem;color:var(--muted)" data-i18n="everything-after-the-element.afbf">
+      <p style="font-size:.88rem;color:var(--muted)" data-i18n="everything-after-the-element.98f2">
         Everything after the element lines is optional, and can be left out
         entirely — leaving a key out just means the app's own default
         applies, same as if you'd never touched it:
         <code>analysis</code> (dc/ac/fd/tr), <code>omega</code>,
         <code>variables</code>, <code>tool</code> (th/er/port) with
-        <code>n1</code>/<code>n2</code>/<code>kind</code>,
+        <code>n1</code>/<code>n2</code>/<code>kind</code> and
+        <code>with_load</code> (yes/no, the load question),
         <code>note</code> (text of your own, shown when the entry is
         loaded — repeat the line for a second paragraph),
         <code>image</code> (a link to a picture of the circuit,
@@ -2574,6 +2575,36 @@ units: yes</pre>
       </div>
     </div>
 
+    <!-- #292: the calculator's th script, once it had the equivalent,
+         asked whether a load would be connected to it; on yes it defined
+         irl, vrl and prl in the variable `load` and wrote out the
+         equivalent circuit for a load. The tick is that question -- it
+         adds the three load answers under the four in Results -- and the
+         button is the circuit. Saved with the entry as `with_load`
+         (Roberto, 7 Sep 2026), so a built-in problem about a load opens
+         ticked. Shown for Thévenin / Norton only. -->
+    <div class="row">
+      <div id="loadField">
+        <label class="checkline"><input type="checkbox" id="withLoad"><span data-i18n="are-you-running-a.de25">Are you
+          running a problem with a load connected to this equivalent circuit?</span></label>
+        <div id="loadSubfield" hidden style="margin-top:.5rem">
+          <button type="button" id="loadEquivBtn" data-i18n="load-circuit-equivalent.7e34">Load circuit equivalent?</button>
+          <div id="loadEquivNeed" class="booknote warn" hidden style="margin-top:.6rem" data-i18n="find-the-th-venin.119f">
+            Find the Thévenin / Norton equivalent first: the equivalent circuit is
+            written with the values of <code>ino</code> and <code>req</code> from Results.
+          </div>
+          <div id="loadEquivWarn" class="booknote warn" hidden style="margin-top:.6rem">
+            <p style="margin:0 0 .55rem" data-i18n="loading-the-equivalent-circu.cf5f">Loading the equivalent circuit will
+              overwrite the Circuit Description, Define and Expert Mode fields, and
+              switch the analysis to Solve circuit. If the current circuit is not
+              saved yet, cancel and save it first.</p>
+            <button type="button" id="loadEquivGo" data-i18n="proceed.02ed">Proceed</button>
+            <button type="button" id="loadEquivNo" class="linkish" style="margin-left:.6rem" data-i18n="cancel.77df">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div id="omegaField">
         <label for="omega" data-i18n="angular-frequency-rad-s.308a">ω — angular frequency <span class="hint">(rad/s, number or symbol)</span></label>
@@ -2764,16 +2795,22 @@ units: yes</pre>
     </details>
   </div>
 
-  <div class="card inactive" id="evalCard">
+  <!-- #291 (Roberto, 7 Sep 2026): active before any solve, because
+       pr(...) reduces resistors with no circuit at all. The field, the
+       button and the Conditions box start live; with nothing solved the
+       evaluator is sent an empty set of answers and works on what is
+       typed, plus Define. -->
+  <div class="card" id="evalCard">
     <details>
       <summary class="results-h section-toggle" data-i18n="evaluate.d713">Evaluate</summary>
-      <label for="evalExpr" data-i18n="evaluate-an-expression-in.2dbf">Evaluate an expression in terms of the results
+      <label for="evalExpr" data-i18n="evaluate-an-expression-in.3d21">Evaluate an expression in terms of the results
         <span class="hint">— e.g. <code>pr1 + pr2</code> or <code>p_r1 + p_r2</code>;
-        several SymPy functions allowed (see below)</span>
+        several SymPy functions allowed (see below). Works with no circuit solved, too:
+        <code>pr(100, 220)</code> is the parallel of two resistors</span>
       </label>
       <div class="eval-row" style="margin-top:.7rem">
-        <div><input type="text" id="evalExpr" placeholder="solve a circuit first…" disabled data-i18n-placeholder="solve-a-circuit-first.d7f8"></div>
-        <div><button id="evalBtn" disabled data-i18n="evaluate.d713">Evaluate</button></div>
+        <div><input type="text" id="evalExpr" placeholder="e.g. v2 - v3, or pr(100, 220)" data-i18n-placeholder="e-g-v-v.5dfd"></div>
+        <div><button id="evalBtn" data-i18n="evaluate.d713">Evaluate</button></div>
       </div>
       <details class="exhelp" style="margin-top:.9rem">
         <summary data-i18n="useful-sympy-functions.1d1b">Useful SymPy functions</summary>
@@ -2849,7 +2886,7 @@ units: yes</pre>
                holds nothing. -->
           <textarea id="evalConds" spellcheck="false" rows="1"
             style="min-height:2.4rem;height:2.4rem"
-            placeholder="solve a circuit first…" disabled data-i18n-placeholder="solve-a-circuit-first.d7f8"></textarea>
+            placeholder="e.g. t = to" data-i18n-placeholder="e-g-t-to.d6f9"></textarea>
         </div>
       </div>
       <div id="evalOut" class="lcd"></div>
@@ -3340,7 +3377,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 06:35 UTC</span><br>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 10:00 UTC</span><br>
   <span class="notranslate" style="white-space:nowrap"><a href="https://symbulator.com" target="_blank" rel="noopener">symbulator.com</a> ·</span>
   <span data-i18n="free-and-open-source.d231">Free and open-source under the MIT licence · Runs on Python+SymPy</span>
 </footer>
@@ -3611,6 +3648,7 @@ function syncFields() {
   $('varsField').style.display  = (domainSel.value === 'tr' && tool === 'solve') ? 'block' : 'none';
   $('n1Field').style.display = tool !== 'solve' ? 'block' : 'none';
   $('n2Field').style.display = tool !== 'solve' ? 'block' : 'none';
+  $('loadField').style.display = tool === 'th' ? 'block' : 'none';   // #292
   $('kindField').style.display = tool === 'port' ? 'block' : 'none';
   // Equations/conditions still make sense for a plain solve (e.g. pinning
   // a symbolic component value); th/er/port -- which don't accept
@@ -3621,6 +3659,91 @@ domainSel.addEventListener('change', () => { syncFields(); syncSettings(); });
 
 toolSel.addEventListener('change', syncFields);
 $('equivType').addEventListener('change', syncFields);
+
+// ---- #292: a load on the Thévenin / Norton equivalent ------------------
+// The tick reveals the button and, when a Thévenin result is on screen,
+// redraws it with the three load answers under the four. Redrawing rather
+// than re-solving: the engine sends irl, vrl and prl with every th run,
+// and the page decides whether to show them.
+$('withLoad').addEventListener('change', () => {
+  setWithLoad($('withLoad').checked);
+  if (lastSolve && lastSolve.tool === 'th') {
+    renderSolveResult(lastSolve, Number($('solutionSel').value) || 0);
+  }
+  // The tick is saved with the entry (`with_load`), so it counts as an
+  // input: the Update link and the stored session have to see it move.
+  refreshEntryLinks();
+  persistState();
+});
+
+// Setting .checked fires no change event, so the button under the tick
+// has to be shown or hidden by hand -- from a loaded entry, from Clear
+// all, and from the tick itself. Any open warning goes with it.
+function setWithLoad(on) {
+  $('withLoad').checked = on;
+  $('loadSubfield').hidden = !on;
+  $('loadEquivWarn').hidden = true;
+  $('loadEquivNeed').hidden = true;
+}
+
+// The button asks before it acts: the equivalent circuit overwrites the
+// description, Define and Expert Mode, so a reader with an unsaved
+// circuit gets to cancel and save it. Inline rather than window.confirm,
+// so it translates and the circuit stays visible while deciding.
+$('loadEquivBtn').addEventListener('click', () => {
+  const ready = !!(last && last.tool === 'th' && last.values
+                   && last.values.ino !== undefined);
+  $('loadEquivNeed').hidden = ready;
+  $('loadEquivWarn').hidden = !ready;
+});
+$('loadEquivNo').addEventListener('click', () => { $('loadEquivWarn').hidden = true; });
+$('loadEquivGo').addEventListener('click', () => {
+  $('loadEquivWarn').hidden = true;
+  loadEquivalentCircuit();
+});
+
+// A value already given to `load` -- a `load = 168` line in Define, else
+// in Evaluate's Conditions -- carries over into the new Define, the way
+// the calculator's `load` variable survived into its eqcir.
+function storedLoadValue() {
+  for (const box of ['defines', 'evalConds']) {
+    for (const line of linesOf($(box).value)) {
+      const m = /^\s*load\s*=\s*(.+?)\s*$/i.exec(line);
+      if (m) return m[1];
+    }
+  }
+  return '';
+}
+
+// The calculator's eqcir, in version 9's fields: v8 wrote
+// "jN,0,n,iNo:rE,n,0,rEq:rL,n,0,Load" and left iNo and rEq in memory;
+// here the three lines go in the description and the two values into
+// Define, exact (from `values`, not the rounded display), so the next
+// solve is the equivalent's. In AC and FD the resistance is zEq.
+function loadEquivalentCircuit() {
+  if (!(last && last.tool === 'th' && last.values)) return;
+  const v = last.values;
+  const zKey = v.req !== undefined ? 'req' : 'zeq';
+  const zName = zKey === 'req' ? 'rEq' : 'zEq';
+  const loadVal = storedLoadValue();
+  $('desc').value = ['jN,0,n,iNo', 'rE,n,0,' + zName, 'rL,n,0,load'].join('\n');
+  const defs = ['iNo=' + v.ino, zName + '=' + v[zKey]];
+  if (loadVal) defs.push('load=' + loadVal);
+  $('defines').value = defs.join('\n');
+  $('defineBox').open = true;
+  $('eqs').value = ''; $('unks').value = ''; $('conds').value = '';
+  $('expertEnabled').checked = false;
+  syncExpertMode();
+  toolSel.value = 'solve';
+  syncFields();
+  autoGrowDesc();
+  // The answers on screen were the circuit that has just been replaced;
+  // the same rule as loading any other circuit.
+  clearResults();
+  markAllStale();
+  refreshEntryLinks();
+  persistState();
+}
 
 // The Plot card's own tool switch (time-domain vs. Bode) -- it runs tr()
 // or fd() internally, independent of the main Analysis card entirely, so
@@ -3822,12 +3945,7 @@ let lastSolve = null;
 // solve has actually succeeded.
 function activatePostSolve() {
   $('resultsCard').classList.remove('inactive');
-  $('evalExpr').disabled = false;
-  $('evalExpr').placeholder = t('js.eval.hint', 'e.g. v2 - v3, or p_r1 + p_r2');
-  $('evalConds').disabled = false;
-  $('evalConds').placeholder = t('js.eval.condHint', 'e.g. t = to');
-  $('evalBtn').disabled = false;
-  $('evalCard').classList.remove('inactive');
+  // Evaluate is not here: it is live from the start (#291).
   $('solveqEqs').disabled = false;
   $('solveqEqs').placeholder = t('js.solveq.hint', 'e.g. p_r2 = 0.05');
   $('solveqUnks').disabled = false;
@@ -3875,13 +3993,9 @@ function clearResults() {
   $('equationsCard').classList.add('inactive');
   $('status').textContent = '';
   $('resultsCard').classList.add('inactive');
+  // Evaluate stays active (#291): only its last answer is cleared, since
+  // pr(...) and Define need no circuit.
   $('evalOut').innerHTML = '';
-  $('evalExpr').disabled = true;
-  $('evalExpr').placeholder = WAITING_FOR_SOLVE();
-  $('evalConds').disabled = true;
-  $('evalConds').placeholder = WAITING_FOR_SOLVE();
-  $('evalBtn').disabled = true;
-  $('evalCard').classList.add('inactive');
   $('solveqOut').innerHTML = '';
   // #184: the Solve card's fields were already disabled here, exactly as
   // Evaluate's are -- but they did not *say* so. This one was blanked,
@@ -4470,6 +4584,7 @@ function applyCircuit(c) {
   $('n1').value = c.n1 || '';
   $('n2').value = c.n2 || '';
   $('kind').value = c.kind || 'z';
+  setWithLoad(!!c.with_load);                                    // #292
   $('eqs').value = (c.equations || []).join('\n');
   $('conds').value = (c.conditions || []).join('\n');
   $('unks').value = c.unknowns || '';
@@ -5082,6 +5197,8 @@ function inputsSnapshot() {
     omega: $('omega').value, vars: $('vars').value,
     n1: $('n1').value, n2: $('n2').value,
     kind: currentTool() === 'port' ? $('kind').value : '',
+    // #292: the load question, meaningful for Thévenin / Norton only.
+    with_load: currentTool() === 'th' && $('withLoad').checked,
     unknowns: commaList(expert.unknowns),
     equations: linesOf(expert.equations),
     conditions: linesOf(expert.conditions),
@@ -5447,6 +5564,7 @@ function clearAllInputs() {
   $('varsSubfield').style.display = 'none';
   $('n1').value = ''; $('n2').value = '';
   $('kind').value = 'z';
+  setWithLoad(false);                                             // #292
   // Expert Mode
   $('eqs').value = ''; $('conds').value = ''; $('unks').value = '';
   $('expertEnabled').checked = false;
@@ -5513,7 +5631,9 @@ $('clearAllBtn').addEventListener('click', () => {
 });
 
 const TEXNAME = { vth: 'v_{th}', ino: 'i_{no}', req: 'R_{eq}',
-                  zeq: 'Z_{eq}', pmax: 'p_{max}' };
+                  zeq: 'Z_{eq}', pmax: 'p_{max}',
+                  irl: 'i_{rl}', vrl: 'v_{rl}', prl: 'p_{rl}',    // #292
+                  aprl: 'ap_{rl}' };
 // Turn an answer's variable name (e.g. "v_2", "z11", "vth") into a LaTeX
 // subscript form (e.g. "v_{2}") for MathJax to render, so the page's
 // math matches how it would be written by hand rather than showing the
@@ -5646,6 +5766,9 @@ function shownFrom(sol) {
   for (const el of sol.elements)
     for (const it of el.items) shown[it.sym + '_' + el.name] = it.plain;
   for (const ex of sol.extras) shown[ex.name] = ex.plain;
+  // #292: the load answers are recorded with the rest only when shown.
+  if ($('withLoad').checked)
+    for (const ex of (sol.load_extras || [])) shown[ex.name] = ex.plain;
   return shown;
 }
 
@@ -5867,7 +5990,12 @@ async function renderSolveResult(data, idx) {
     out.appendChild(cap);
     const lcd = document.createElement('div');
     lcd.className = 'lcd';
-    for (const ex of sol.extras) {
+    // #292: the load answers follow the four when the reader has ticked
+    // the load question. They ride in `load_extras`, apart from `extras`,
+    // so an unticked page reads exactly as before.
+    const loadRows = (data.tool === 'th' && $('withLoad').checked)
+      ? (sol.load_extras || []) : [];
+    for (const ex of [...sol.extras, ...loadRows]) {
       const row = document.createElement('div');
       row.className = 'result-row';
       const nm = document.createElement('span');
@@ -6402,7 +6530,8 @@ $('plotDownloadBtn').addEventListener('click', downloadPlotChart);
 
 // ---- Expression evaluator -------------------------------------------
 async function evaluate() {
-  if (!last) return;
+  // #291: no `last` is fine -- the evaluator then has no answers to
+  // substitute and works on the expression and Define alone.
   const btn = $('evalBtn'), box = $('evalOut');
   btn.disabled = true;
   box.style.display = 'block';
@@ -6414,10 +6543,11 @@ async function evaluate() {
       headers: {'Content-Type': 'application/json'},
       // The domain rides with the values: `{...}` converts from time into
       // s, so it means something only when the answers are in s.
-      body: JSON.stringify({ expr: $('evalExpr').value, values: last.values,
+      body: JSON.stringify({ expr: $('evalExpr').value,
+                             values: last ? last.values : {},
                              conditions: $('evalConds').value,
                              defines: linesOf($('defines').value),
-                             domain: last.domain || '',
+                             domain: last ? (last.domain || '') : '',
                              ...roundingState(), si: $('siUnits').checked })
     });
     const data = await r.json();
@@ -7110,15 +7240,15 @@ const PALETTES = ['navy', 'violet', 'pastels', 'warmpink', 'burgundy', 'brick',
                   'turquoise', 'highcontrast'];
 function paletteNames() {
   return {
-    navy: t('js.palette.navy', 'Navy'),
+    navy: t('js.palette.navy', 'Default'),
     violet: t('js.palette.violet', 'Violet'),
     pastels: t('js.palette.pastels', 'Pastels'),
-    warmpink: t('js.palette.warmpink', 'Warm pink'),
+    warmpink: t('js.palette.warmpink', 'Warm Pink'),
     burgundy: t('js.palette.burgundy', 'Burgundy'),
     brick: t('js.palette.brick', 'Brick'),
     walnut: t('js.palette.walnut', 'Walnut'),
     earth: t('js.palette.earth', 'Earth'),
-    graygold: t('js.palette.graygold', 'Gray & gold'),
+    graygold: t('js.palette.graygold', 'Gray & Gold'),
     firefly: t('js.palette.firefly', 'Firefly'),
     forest: t('js.palette.forest', 'Forest'),
     turquoise: t('js.palette.turquoise', 'Turquoise'),

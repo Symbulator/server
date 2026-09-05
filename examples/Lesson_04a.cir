@@ -83,15 +83,17 @@ r1,1,2,3
 r2,2,0,6
 
 analysis: dc
-note: Find the Thévenin equivalent of the shaded network, then the current through RL for values of 2, 10 and 100 ohm. The Evaluate line answers the 2 ohm load; for the other two loads, evaluate vth/(req+10) and vth/(req+100): 0.5 A and 0.059 A.
+note: Find the Thévenin equivalent of the shaded network, then the current through RL for values of 2, 10 and 100 ohm. The load question comes ticked, so irl appears under the four answers; the Evaluate line reads it at the 2 ohm load, 1.5 A; change the condition to load = 10 and load = 100 for the other two: 0.5 A and 0.059 A.
 image: https://learn.symbulator.com/assets/circuit/b11e0906.jpg [500px]
 tool: th
 n1: 2
 n2: 0
+with_load: yes
 rounding: exact
 si: no
 units: yes
-evaluate: vth/(req+2)
+evaluate: irl
+evaluate_conditions: load = 2
 
 
 [RM3's Example 9-8]
@@ -102,11 +104,12 @@ r2,2,0,280
 j,2,0,560'm
 
 analysis: dc
-note: Find the Norton equivalent of the circuit left of a-b. Version 9 reports the Norton current in the direction it flows, so the sign differs from the calculator's 0.36.
+note: Find the Norton equivalent of the circuit left of a-b; the load question comes ticked, ready for the Load circuit equivalent button, which writes the next entry. Version 9 reports the Norton current in the direction it flows, so the sign differs from the calculator's 0.36.
 image: https://learn.symbulator.com/assets/circuit/rm3e0908.jpg
 tool: th
 n1: 2
 n2: 0
+with_load: yes
 rounding: 3
 si: no
 units: yes
@@ -114,13 +117,15 @@ units: yes
 
 [RM3's Example 9-8 (with the load)]
 
-jn,0,n,-0.36
-re1,n,0,84
-rl,n,0,168
+jN,0,n,iNo
+rE,n,0,rEq
+rL,n,0,168
 j,0,n,180'm
 
 analysis: dc
-note: The equivalent from the previous entry, with the 168 ohm load and the 180 mA source connected. Find the current through RL: the rl block reads -0.06 A, that is, 60 mA flowing from 0 to n.
+note: The equivalent from the previous entry, as the Load circuit equivalent button writes it, with the load changed to 168 ohm and the 180 mA source added. Find the current through RL: the rl block reads -0.06 A, that is, 60 mA flowing from 0 to n.
+defines: iNo=-9/25
+defines: rEq=84
 image: https://learn.symbulator.com/assets/circuit/rm3e0908.jpg
 rounding: 3
 si: no

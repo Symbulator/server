@@ -48,7 +48,7 @@ END = "/* ==== END palettes (#278) ==== */"
 # The order of TABLE is the menu's order: chromatic, Navy first as the
 # default, High contrast last as the one achromatic theme.
 TABLE = [
-    ("navy", "Navy",
+    ("navy", "Default",
      "#203864 #2a4576 #8ec7f5 #b7c3d6 #dbe6f5",
      "#102338 #0d1e30 #081525 #173352 #8ecbff #4a7098 #6fb8f0",
      "#f4f6fa #ffffff #1c2330 #5b6472 #2f5fa8 #ffffff #e2e5ea #fbfcfd #cfd6df #1f4a86",
@@ -63,7 +63,7 @@ TABLE = [
      "#47406c #3e3860 #2e2a48 #565080 #c8f5dc #9a93bf #f7c7d9",
      "#f8f6fb #ffffff #3a3550 #7a7494 #e79ab0 #3a3550 #e8e3f2 #fcfbfe #d8d1e8 #f0b0c2",
      "#221f30 #2c2840 #ece8f5 #aaa3c4 #f2b8c8 #221f30 #3f3a56 #1d1a2a #4c4666 #f8cbd8"),
-    ("warmpink", "Warm pink",
+    ("warmpink", "Warm Pink",
      "#5c1a45 #6c2654 #f3a6d3 #d9b3cb #f3dbe9",
      "#2b0f22 #21091a #12050e #43203a #ffb6de #8a5a78 #f08cc4",
      "#fbf5f8 #ffffff #2a1a24 #6f5866 #b02a72 #ffffff #ecdde5 #fdfafc #dcc6d3 #8f1f5b",
@@ -88,7 +88,7 @@ TABLE = [
      "#2a2016 #201810 #100b07 #43352a #eacd9e #8a7250 #d7b078",
      "#f8f4ee #fffdf9 #2d2419 #6f6152 #8a5a2b #ffffff #e6dccf #fdfaf5 #d5c8b6 #6e4620",
      "#1a1512 #241d18 #ede4d8 #ab9c8a #d3a262 #1a1512 #3a3028 #15100d #4a3e33 #e2b87d"),
-    ("graygold", "Gray & gold",
+    ("graygold", "Gray & Gold",
      "#3b4048 #484e57 #d9aa4c #b8bec6 #e2e6ea",
      "#23282e #1a1e22 #0d0f11 #343a41 #f0c070 #7d7466 #d9aa4c",
      "#f2f3f4 #ffffff #1e2125 #5f666e #b3781e #ffffff #dde0e3 #fafbfb #c8cdd3 #8f5e14",

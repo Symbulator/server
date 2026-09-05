@@ -628,6 +628,9 @@ NOT_FOR_READERS = {
     "least-squares", "bounded", "plot", "schematic",
     # The mathematics, which is never translated.
     "time (s)", "dB", "v_2", "100/(s^2 + 10*s + 100)", "circuits.cir",
+    # #292: the equivalent circuit the load button writes -- element
+    # lines in Symbulator's own notation, the calculator's eqcir.
+    "jN,0,n,iNo", "rL,n,0,load",
     # Markup and layout fragments.
     "result-row", "result-math", "result-name", "msg", "msg bad", "msg ok",
     "badge", "lcd-meta", "error",

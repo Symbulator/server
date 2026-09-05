@@ -776,6 +776,9 @@ def api_solve():
                     "approx_forced": payload.get("approx_forced", False),
                     "nodes": payload["nodes"],
                     "elements": payload["elements"], "extras": payload["extras"],
+                    # #292: the th tool's answers for a load on the port,
+                    # shown only when the reader has said there is one.
+                    "load_extras": payload.get("load_extras") or [],
                     "values": payload["values"],
                     # Every root of the system, each formatted the same way
                     # as the fields above -- which mirror the first of them.

@@ -113,6 +113,11 @@ _KEYS = {
     "evaluate": "evaluate",
     "solve_unknowns": "solve_unknowns",
     "solve_real_only": "solve_real_only",
+    # #292: the Thévenin / Norton tool's load question -- "Are you running
+    # a problem with a load connected to this equivalent circuit?" On, the
+    # three load answers show under the four. Saved with the entry so a
+    # built-in problem about a load opens with the question ticked.
+    "with_load": "with_load",
 }
 # Keys that may appear several times and accumulate into a list. Plural,
 # because the field holds several -- the same rule as unknowns and
@@ -146,7 +151,7 @@ _MULTI = {"equations": "equations",
 # booleans rather than plain text -- parse_book converts their text
 # ("yes"/"no"/...) to real True/False so the front end never has to.
 _BOOL_FIELDS = {"si", "units", "rms", "polar", "solve_real_only",
-                "show_equations"}
+                "show_equations", "with_load"}
 _TRUE_WORDS = {"yes", "true", "1", "on"}
 
 #: #235: an `image:` value may end with a width cap -- `<url> [200px]`.
@@ -370,6 +375,10 @@ def format_book(circuits: List[dict], title: str = "") -> str:
             val = c.get(field)
             if val:
                 analysis.append(f"{key}: {val}")
+        # #292: written only when on, beside the port nodes it belongs to;
+        # the load question exists for the Thévenin / Norton tool alone.
+        if c.get("with_load"):
+            analysis.append("with_load: yes")
         # #237: one `note:` line per paragraph, so a book that is
         # downloaded and re-opened reads exactly as it did.
         for val in c.get("note", []) or []:
