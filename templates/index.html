@@ -1335,6 +1335,15 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
     outline: 2px solid var(--sky, #8ec7f5); outline-offset: 6px;
   }
   .subbar .palette-wrap option { color: #1c2330; background: #fff; }
+  /* #309 (Roberto, 7 Sep 2026: "Feel free to hide the theme button in
+     mobile"): below the phone breakpoint the swatch gives its width to
+     the nav, whose one-line rule was dropping the Docs link in six
+     languages once Collapse (#308) joined the row. The colour theme
+     still applies; it is chosen on a wider screen or by the stored
+     preference. The sun and moon stay -- dark mode matters on a phone. */
+  @media (max-width: 480px) {
+    .subbar .palette-wrap { display: none; }
+  }
   @media (max-width: 520px) {
     .subbar .palette-wrap { width: 2.15rem; height: 2.15rem; }
     .subbar .palette-wrap .palette-face { width: .9rem; height: .9rem; }
@@ -3325,7 +3334,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 11:40 UTC</span><br>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 11:45 UTC</span><br>
   <span class="notranslate" style="white-space:nowrap"><a href="https://symbulator.com" target="_blank" rel="noopener">symbulator.com</a> ·</span>
   <span data-i18n="free-and-open-source.d231">Free and open-source under the MIT licence · Runs on Python+SymPy</span>
 </footer>
