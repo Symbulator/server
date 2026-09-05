@@ -1373,10 +1373,12 @@ _PORT_UNITS = {"z": "ohm", "y": "S"}
 # the labels the main circuit solve already gives every node voltage and
 # element answer (see _ELEMENT_KEYS below) -- so the special tools stop
 # being the only place that shows a bare variable name with no explanation.
+# Lower case like those labels (#287, Roberto, 6 Sep 2026); Thevenin and
+# Norton keep their capital because they are names.
 _TOOL_LABELS = {
     "vth": "Thevenin voltage", "ino": "Norton current",
-    "req": "Equivalent resistance", "zeq": "Equivalent impedance",
-    "pmax": "Maximum deliverable power",
+    "req": "equivalent resistance", "zeq": "equivalent impedance",
+    "pmax": "maximum deliverable power",
 }
 
 # Same idea for the two-port (port) tool: one textbook description per
