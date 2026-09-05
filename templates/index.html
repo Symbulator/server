@@ -1261,6 +1261,9 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
      Outside the shared block above on purpose: banner.css is the lockup
      five sites share, and this is one host's decision about one frame. */
   html.embedded .topbar { display: none; }
+  /* #312: one sun-and-moon in the split view, the shell's, which tells
+     this pane by message (see the #themeToggle script). */
+  html.embedded .theme-toggle { display: none; }
 
   /* The language menu (#197). Deliberately NOT in banner.css: that file
      is the lockup the five sites share, and only this app speaks nine
@@ -3345,7 +3348,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 12:00 UTC</span><br>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 12:12 UTC</span><br>
   <span class="notranslate" style="white-space:nowrap"><a href="https://symbulator.com" target="_blank" rel="noopener">symbulator.com</a> ·</span>
   <span data-i18n="free-and-open-source.d231">Free and open-source under the MIT licence · Runs on Python+SymPy</span>
 </footer>
@@ -7215,12 +7218,30 @@ function syncThemeToggleLabel() {
   themeToggleBtn.title = label;
 }
 syncThemeToggleLabel();
-themeToggleBtn.addEventListener('click', () => {
-  const nextDark = !isDarkTheme();
+function setDarkTheme(nextDark) {
   if (nextDark) { document.documentElement.setAttribute('data-theme', 'dark'); }
   else { document.documentElement.removeAttribute('data-theme'); }
   try { localStorage.setItem('symbulator-theme', nextDark ? 'dark' : 'light'); } catch (e) {}
   syncThemeToggleLabel();
+}
+themeToggleBtn.addEventListener('click', () => { setDarkTheme(!isDarkTheme()); });
+
+// #312 (Roberto, 7 Sep 2026): inside the split view there were two sun-
+// and-moon buttons, the shell's and this one. Framed, this one is hidden
+// (the rule beside #311's) and the shell's drives both panes: it posts
+// { from: 'symbulator-split', type: 'theme', dark } on every click and
+// once more each time this pane loads, so a freshly opened entry matches
+// the shell. Accepted only when framed and only from the documentation
+// site (or this page's own origin, which is how the dev server is
+// tested); stored like a click, so the app opened on its own later
+// remembers the last choice made here. This is the one message the app
+// pane receives -- everything else about it is still driven by its src.
+window.addEventListener('message', (ev) => {
+  if (window.self === window.top) return;
+  if (ev.origin !== 'https://learn.symbulator.com' && ev.origin !== location.origin) return;
+  const m = ev.data;
+  if (!m || m.from !== 'symbulator-split' || m.type !== 'theme') return;
+  setDarkTheme(!!m.dark);
 });
 
 // #278: the theme picker. Twelve palettes (thirteen until #307 dropped Walnut), Navy the default; the choice
