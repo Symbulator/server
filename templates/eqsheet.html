@@ -37,7 +37,7 @@
 //
 // The <script> written below is parser-blocking on purpose: see
 // pack_block() in tools/i18n.py for why it cannot be a fetch.
-window.SYMB_I18N_V = "99236d9ae8";
+window.SYMB_I18N_V = "0dfaf00823";
 // Rewritten to a relative path by build_local.py: the offline page
 // sits at the root of its own folder, and the server serves the
 // app at / and the Numerical Solver at /eqsheet/, so only a
@@ -273,42 +273,6 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
     --badge-bg: #33221e;
     --lcd: #160e0c;
     --lcd-edge: #4e3730;
-  }
-  /* Walnut */
-  html[data-palette="walnut"] {
-    --navy: #3a2718;
-    --navy-2: #4a3323;
-    --sky: #e6cf9a;
-    --banner-sub: #cdb992;
-    --banner-link: #eadcbd;
-    --paper: #ece0c4;
-    --card: #f4ead3;
-    --card-2: #f0e5cc;
-    --ink: #3a2a1c;
-    --ink-2: #7a6549;
-    --ink-3: #a8967a;
-    --line: #d8c7a3;
-    --rule-2: #e2d4b4;
-    --accent: #9c4a2c;
-    --result-ink: #7d3a20;
-    --badge-bg: #e5d7b9;
-    --lcd: #f7efdc;
-    --lcd-edge: #c9b58c;
-  }
-  html[data-palette="walnut"][data-theme="dark"] {
-    --paper: #1e160f;
-    --card: #2a1f16;
-    --card-2: #241a12;
-    --ink: #e8dcc0;
-    --ink-2: #a89474;
-    --ink-3: #71624c;
-    --line: #3f3225;
-    --rule-2: #2e241a;
-    --accent: #d18a5a;
-    --result-ink: #d18a5a;
-    --badge-bg: #36291e;
-    --lcd: #17110c;
-    --lcd-edge: #4d3e2d;
   }
   /* Earth */
   html[data-palette="earth"] {
@@ -2048,7 +2012,7 @@ themeToggleBtn.addEventListener('click', ()=>{
 });
 syncThemeToggle();
 
-// #278: the theme picker. Thirteen palettes, Navy the default; the choice
+// #278: the theme picker. Twelve palettes (thirteen until #307 dropped Walnut), Navy the default; the choice
 // is a root attribute the stylesheet keys on (absent for Navy, so the
 // default page is exactly the page before this item), stored beside the
 // dark-mode flag and the language, and applied before first paint by the
@@ -2057,7 +2021,7 @@ syncThemeToggle();
 // approved sheet -- and every name is a t() call so the dictionaries
 // carry it (Firefly translates too, where the language has the word).
 const PALETTES = ['navy', 'violet', 'pastels', 'warmpink', 'burgundy', 'brick',
-                  'walnut', 'earth', 'graygold', 'firefly', 'forest',
+                  'earth', 'graygold', 'firefly', 'forest',
                   'turquoise', 'highcontrast'];
 function paletteNames() {
   return {
@@ -2067,7 +2031,6 @@ function paletteNames() {
     warmpink: t('js.palette.warmpink', 'Warm Pink'),
     burgundy: t('js.palette.burgundy', 'Burgundy'),
     brick: t('js.palette.brick', 'Brick'),
-    walnut: t('js.palette.walnut', 'Walnut'),
     earth: t('js.palette.earth', 'Earth'),
     graygold: t('js.palette.graygold', 'Gray & Gold'),
     firefly: t('js.palette.firefly', 'Firefly'),

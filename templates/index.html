@@ -37,7 +37,7 @@ window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'glo
 //
 // The <script> written below is parser-blocking on purpose: see
 // pack_block() in tools/i18n.py for why it cannot be a fetch.
-window.SYMB_I18N_V = "99236d9ae8";
+window.SYMB_I18N_V = "0dfaf00823";
 // Rewritten to a relative path by build_local.py: the offline page
 // sits at the root of its own folder, and the server serves the
 // app at / and the Numerical Solver at /eqsheet/, so only a
@@ -486,69 +486,6 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
     --code-bg: #33221e;
     --note-bg: #35211b;
     --note-line: #714032;
-  }
-  /* Walnut */
-  html[data-palette="walnut"] {
-    --navy: #3a2718;
-    --navy-2: #4a3323;
-    --sky: #e6cf9a;
-    --banner-sub: #cdb992;
-    --banner-link: #eadcbd;
-    --lcd-top: #33251a;
-    --lcd-bg: #281c13;
-    --lcd-border: #140d08;
-    --lcd-line: #4a3826;
-    --lcd-ink: #efd9a6;
-    --lcd-dim: #8a7455;
-    --lcd-name: #d9a56b;
-    --lcd-scroll: #7c684c;
-    --lcd-glow: rgba(217,165,107,0.1);
-    --bg: #ece0c4;
-    --card: #f4ead3;
-    --ink: #3a2a1c;
-    --muted: #7a6549;
-    --accent: #9c4a2c;
-    --accent-ink: #ffffff;
-    --accent-open: #8d452a;
-    --accent-hover: #7d3a20;
-    --line: #d8c7a3;
-    --line-soft: #e2d4b4;
-    --placeholder: #ad9c80;
-    --focus-line: #9c4a2c;
-    --focus-ring: 0 0 0 3px rgba(156,74,44,0.18);
-    --btn-disabled: #b3a286;
-    --solve-shadow-rgb: 125,58,32;
-    --field-bg: #f7efdc;
-    --field-bg-focus: #f4ead3;
-    --field-border: #c9b58c;
-    --field-border-hover: #9e8b6a;
-    --code-bg: #e5d7b9;
-    --note-bg: #edddc6;
-    --note-line: #d1aa90;
-  }
-  html[data-palette="walnut"][data-theme="dark"] {
-    --bg: #1e160f;
-    --card: #2a1f16;
-    --ink: #e8dcc0;
-    --muted: #a89474;
-    --accent: #d18a5a;
-    --accent-ink: #1e160f;
-    --accent-open: #b87a50;
-    --accent-hover: #e0a070;
-    --line: #3f3225;
-    --line-soft: #2e241a;
-    --placeholder: #6a5b47;
-    --focus-line: #d18a5a;
-    --focus-ring: 0 0 0 3px rgba(209,138,90,0.18);
-    --btn-disabled: #635542;
-    --solve-shadow-rgb: 224,160,112;
-    --field-bg: #17110c;
-    --field-bg-focus: #2a1f16;
-    --field-border: #4d3e2d;
-    --field-border-hover: #7c6d59;
-    --code-bg: #36291e;
-    --note-bg: #37281b;
-    --note-line: #6d4a31;
   }
   /* Earth */
   html[data-palette="earth"] {
@@ -3380,7 +3317,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 10:57 UTC</span><br>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 11:29 UTC</span><br>
   <span class="notranslate" style="white-space:nowrap"><a href="https://symbulator.com" target="_blank" rel="noopener">symbulator.com</a> ·</span>
   <span data-i18n="free-and-open-source.d231">Free and open-source under the MIT licence · Runs on Python+SymPy</span>
 </footer>
@@ -7251,7 +7188,7 @@ themeToggleBtn.addEventListener('click', () => {
   syncThemeToggleLabel();
 });
 
-// #278: the theme picker. Thirteen palettes, Navy the default; the choice
+// #278: the theme picker. Twelve palettes (thirteen until #307 dropped Walnut), Navy the default; the choice
 // is a root attribute the stylesheet keys on (absent for Navy, so the
 // default page is exactly the page before this item), stored beside the
 // dark-mode flag and the language, and applied before first paint by the
@@ -7260,7 +7197,7 @@ themeToggleBtn.addEventListener('click', () => {
 // approved sheet -- and every name is a t() call so the dictionaries
 // carry it (Firefly translates too, where the language has the word).
 const PALETTES = ['navy', 'violet', 'pastels', 'warmpink', 'burgundy', 'brick',
-                  'walnut', 'earth', 'graygold', 'firefly', 'forest',
+                  'earth', 'graygold', 'firefly', 'forest',
                   'turquoise', 'highcontrast'];
 function paletteNames() {
   return {
@@ -7270,7 +7207,6 @@ function paletteNames() {
     warmpink: t('js.palette.warmpink', 'Warm Pink'),
     burgundy: t('js.palette.burgundy', 'Burgundy'),
     brick: t('js.palette.brick', 'Brick'),
-    walnut: t('js.palette.walnut', 'Walnut'),
     earth: t('js.palette.earth', 'Earth'),
     graygold: t('js.palette.graygold', 'Gray & Gold'),
     firefly: t('js.palette.firefly', 'Firefly'),
