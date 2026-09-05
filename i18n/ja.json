@@ -101,7 +101,6 @@
  "femto.c8c4": "フェムト、×10<sup>−15</sup>",
  "fields.e8b6": "フィールド",
  "find-equivalent.fcc3": "等価回路を求める",
- "find-the-th-venin.119f": "まず Thévenin / Norton 等価回路を求めてください。等価回路は結果の <code>ino</code> と <code>req</code> の値を使って書かれます。",
  "free-and-open-source.d231": "MIT ライセンスのフリー・オープンソース · Python+SymPy で動作",
  "full.52e6": "全精度",
  "function.f1e4": "関数",

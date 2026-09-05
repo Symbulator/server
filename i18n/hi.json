@@ -101,7 +101,6 @@
  "femto.c8c4": "फ़ेम्टो, ×10<sup>−15</sup>",
  "fields.e8b6": "फ़ील्ड",
  "find-equivalent.fcc3": "तुल्य सर्किट निकालें",
- "find-the-th-venin.119f": "पहले Thévenin / Norton तुल्य सर्किट निकालें: तुल्य सर्किट परिणामों में मिले <code>ino</code> और <code>req</code> के मानों से लिखा जाता है।",
  "free-and-open-source.d231": "MIT लाइसेंस के अंतर्गत मुक्त और ओपन-सोर्स · Python+SymPy पर चलता है",
  "full.52e6": "पूर्ण",
  "function.f1e4": "फलन",

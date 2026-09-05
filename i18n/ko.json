@@ -101,7 +101,6 @@
  "femto.c8c4": "펨토, ×10<sup>−15</sup>",
  "fields.e8b6": "필드",
  "find-equivalent.fcc3": "등가회로 구하기",
- "find-the-th-venin.119f": "먼저 Thévenin / Norton 등가회로를 구하세요. 등가회로는 결과의 <code>ino</code>와 <code>req</code> 값으로 씁니다.",
  "free-and-open-source.d231": "MIT 라이선스의 자유 오픈소스 · Python+SymPy로 구동",
  "full.52e6": "전체",
  "function.f1e4": "함수",

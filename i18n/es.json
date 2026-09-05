@@ -101,7 +101,6 @@
  "femto.c8c4": "femto, ×10<sup>−15</sup>",
  "fields.e8b6": "Campos",
  "find-equivalent.fcc3": "Hallar equivalente",
- "find-the-th-venin.119f": "Halle primero el equivalente de Thévenin / Norton: el circuito equivalente se escribe con los valores de <code>ino</code> y <code>req</code> de los Resultados.",
  "free-and-open-source.d231": "Libre y de código abierto bajo la licencia MIT · Funciona con Python+SymPy",
  "full.52e6": "completa",
  "function.f1e4": "Función",

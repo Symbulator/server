@@ -101,7 +101,6 @@
  "femto.c8c4": "Femto, ×10<sup>−15</sup>",
  "fields.e8b6": "Felder",
  "find-equivalent.fcc3": "Ersatzschaltung finden",
- "find-the-th-venin.119f": "Finden Sie zuerst die Thévenin-/Norton-Ersatzschaltung: die Ersatzschaltung wird mit den Werten von <code>ino</code> und <code>req</code> aus den Ergebnissen geschrieben.",
  "free-and-open-source.d231": "Frei und quelloffen unter der MIT-Lizenz · Läuft auf Python+SymPy",
  "full.52e6": "voll",
  "function.f1e4": "Funktion",

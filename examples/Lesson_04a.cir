@@ -83,13 +83,13 @@ r1,1,2,3
 r2,2,0,6
 
 analysis: dc
-note: Find the Thévenin equivalent of the shaded network, then the current through RL for values of 2, 10 and 100 ohm. The load question comes ticked, so irl appears under the four answers; the Evaluate line reads it at the 2 ohm load, 1.5 A; change the condition to load = 10 and load = 100 for the other two: 0.5 A and 0.059 A.
+note: Find the Thévenin equivalent of the shaded network, then the current through RL for values of 2, 10 and 100 ohm. The load question comes ticked, so irl appears under the four answers; the Evaluate line reads it at the 2 ohm load, 1.5 A; change the condition to load = 10 and load = 100 for the other two: 0.5 A and 0.059 A. Rounding is approx to 2 digits, as the chapter says, so the answers read as the book prints them.
 image: https://learn.symbulator.com/assets/circuit/b11e0906.jpg [500px]
 tool: th
 n1: 2
 n2: 0
 with_load: yes
-rounding: exact
+rounding: 2
 si: no
 units: yes
 evaluate: irl

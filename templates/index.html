@@ -37,7 +37,7 @@ window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'glo
 //
 // The <script> written below is parser-blocking on purpose: see
 // pack_block() in tools/i18n.py for why it cannot be a fetch.
-window.SYMB_I18N_V = "c65be50f6c";
+window.SYMB_I18N_V = "99236d9ae8";
 // Rewritten to a relative path by build_local.py: the offline page
 // sits at the root of its own folder, and the server serves the
 // app at / and the Numerical Solver at /eqsheet/, so only a
@@ -2588,11 +2588,11 @@ units: yes</pre>
         <label class="checkline"><input type="checkbox" id="withLoad"><span data-i18n="are-you-running-a.de25">Are you
           running a problem with a load connected to this equivalent circuit?</span></label>
         <div id="loadSubfield" hidden style="margin-top:.5rem">
-          <button type="button" id="loadEquivBtn" data-i18n="load-circuit-equivalent.7e34">Load circuit equivalent?</button>
-          <div id="loadEquivNeed" class="booknote warn" hidden style="margin-top:.6rem" data-i18n="find-the-th-venin.119f">
-            Find the Thévenin / Norton equivalent first: the equivalent circuit is
-            written with the values of <code>ino</code> and <code>req</code> from Results.
-          </div>
+          <!-- #299 (Roberto, 7 Sep 2026): disabled until a Thévenin run has
+               been made, and disabled again the moment an input changes --
+               it writes ino and req, so it lives only while a Thévenin
+               result is fresh. paintFreshness('solve') keeps it in step. -->
+          <button type="button" id="loadEquivBtn" disabled data-i18n="load-circuit-equivalent.7e34">Load circuit equivalent?</button>
           <div id="loadEquivWarn" class="booknote warn" hidden style="margin-top:.6rem">
             <p style="margin:0 0 .55rem" data-i18n="loading-the-equivalent-circu.cf5f">Loading the equivalent circuit will
               overwrite the Circuit Description, Define and Expert Mode fields, and
@@ -3377,7 +3377,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 10:00 UTC</span><br>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 10:27 UTC</span><br>
   <span class="notranslate" style="white-space:nowrap"><a href="https://symbulator.com" target="_blank" rel="noopener">symbulator.com</a> ·</span>
   <span data-i18n="free-and-open-source.d231">Free and open-source under the MIT licence · Runs on Python+SymPy</span>
 </footer>
@@ -3683,7 +3683,16 @@ function setWithLoad(on) {
   $('withLoad').checked = on;
   $('loadSubfield').hidden = !on;
   $('loadEquivWarn').hidden = true;
-  $('loadEquivNeed').hidden = true;
+}
+
+// #299: the button is live only while a fresh Thévenin result is on
+// screen. Called from paintFreshness('solve') for every stale/fresh
+// transition and from activatePostSolve once `last` holds the new run.
+function syncLoadEquivBtn() {
+  const live = freshness.solve && !!(last && last.tool === 'th'
+                                     && last.values && last.values.ino !== undefined);
+  $('loadEquivBtn').disabled = !live;
+  if (!live) $('loadEquivWarn').hidden = true;
 }
 
 // The button asks before it acts: the equivalent circuit overwrites the
@@ -3691,10 +3700,8 @@ function setWithLoad(on) {
 // circuit gets to cancel and save it. Inline rather than window.confirm,
 // so it translates and the circuit stays visible while deciding.
 $('loadEquivBtn').addEventListener('click', () => {
-  const ready = !!(last && last.tool === 'th' && last.values
-                   && last.values.ino !== undefined);
-  $('loadEquivNeed').hidden = ready;
-  $('loadEquivWarn').hidden = !ready;
+  if ($('loadEquivBtn').disabled) return;
+  $('loadEquivWarn').hidden = false;
 });
 $('loadEquivNo').addEventListener('click', () => { $('loadEquivWarn').hidden = true; });
 $('loadEquivGo').addEventListener('click', () => {
@@ -3872,6 +3879,7 @@ function paintFreshness(tool) {
     btn.textContent = freshness.solve ? t('js.solved', 'Solved!')
                                        : t('run-symbulator.e67f', 'Run Symbulator');
   }
+  if (tool === 'solve') syncLoadEquivBtn();                        // #299
   const statusId = TOOL_STATUS[tool];
   if (statusId && !freshness[tool]) $(statusId).textContent = '';
 }
@@ -3946,6 +3954,7 @@ let lastSolve = null;
 function activatePostSolve() {
   $('resultsCard').classList.remove('inactive');
   // Evaluate is not here: it is live from the start (#291).
+  syncLoadEquivBtn();   // #299: `last` is the new run by now
   $('solveqEqs').disabled = false;
   $('solveqEqs').placeholder = t('js.solveq.hint', 'e.g. p_r2 = 0.05');
   $('solveqUnks').disabled = false;

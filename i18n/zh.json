@@ -101,7 +101,6 @@
  "femto.c8c4": "飞，×10<sup>−15</sup>",
  "fields.e8b6": "字段",
  "find-equivalent.fcc3": "求等效电路",
- "find-the-th-venin.119f": "请先求出 Thévenin / Norton 等效电路：等效电路要用结果中的 <code>ino</code> 和 <code>req</code> 的值来写出。",
  "free-and-open-source.d231": "基于 MIT 许可证的自由开源软件 · 由 Python+SymPy 驱动",
  "full.52e6": "完整",
  "function.f1e4": "函数",

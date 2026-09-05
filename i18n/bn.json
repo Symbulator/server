@@ -101,7 +101,6 @@
  "femto.c8c4": "ফেমটো, ×10<sup>−15</sup>",
  "fields.e8b6": "ফিল্ড",
  "find-equivalent.fcc3": "সমতুল্য সার্কিট বের করুন",
- "find-the-th-venin.119f": "প্রথমে Thévenin / Norton সমতুল্য সার্কিট বের করুন: সমতুল্য সার্কিটটি ফলাফলের <code>ino</code> ও <code>req</code>-এর মান দিয়ে লেখা হয়।",
  "free-and-open-source.d231": "MIT লাইসেন্সের অধীনে মুক্ত ও ওপেন-সোর্স · Python+SymPy-এ চলে",
  "full.52e6": "পূর্ণ",
  "function.f1e4": "ফাংশন",
