@@ -368,15 +368,15 @@ units: yes
 
 [B11's Example 6.21 (Hidden source, Expert)]
 
-js,0,1,is1
+js,0,1,is
 r1,1,0,6
 r2,1,0,3
 r3,1,0,1
 
 analysis: dc
-note: A hidden source and Expert Mode together: the source current is1 is unknown and ir2 = 2 mA is known. Find Is, I1 and I3.
+note: A hidden source and Expert Mode together: the source current is is unknown and ir2 = 2 mA is known. Find Is, I1 and I3.
 image: https://learn.symbulator.com/assets/practice/b11s-example-6-21-hidden-source-expert-18.jpg [518px]
-unknowns: is1
+unknowns: is
 equations: ir2 = 2'm
 rounding: 3
 si: no
@@ -674,14 +674,14 @@ units: yes
 
 [TR5's Exercise 4.2]
 
-ji,0,x,is1
+ji,0,x,is
 r1,x,0,1'k
 r2,x,o,2'k
 jd,0,o,vx/500
 ro,o,0,500
 
 analysis: dc
-note: The first of the fully symbolic dependent-source problems: find vo and io in terms of the source current is1. The answers come back as formulas, 1000*is1 and 2*is1.
+note: The first of the fully symbolic dependent-source problems: find vo and io in terms of the source current is. The answers come back as formulas, 1000*is and 2*is.
 image: https://learn.symbulator.com/assets/practice/tr5s-exercise-4-2-36.jpg [461px]
 rounding: exact
 si: no
@@ -713,7 +713,7 @@ plotpoints: 300
 
 [TR5's Figure 4-4]
 
-js,0,1,is1
+js,0,1,is
 r50,1,0,50
 rx,1,0,25
 jd,o,0,48*irx
@@ -721,7 +721,7 @@ r3,o,0,300
 ro,o,0,500
 
 analysis: dc
-note: Find the voltage drop, current and power of the 500 ohm resistor in terms of is1, and — on the Evaluate line — the ratio of that power to the power the independent source delivers: 4320.
+note: Find the voltage drop, current and power of the 500 ohm resistor in terms of is, and — on the Evaluate line — the ratio of that power to the power the independent source delivers: 4320.
 image: https://learn.symbulator.com/assets/practice/tr5s-figure-4-4-38.jpg [587px]
 rounding: exact
 si: no
@@ -765,9 +765,9 @@ units: yes
 
 [TR5's Example 4-7 (Symbolic)]
 
-ji,0,a,is1
+ji,0,a,is
 re1,a,0,re1
-jd,b,a,β*is1
+jd,b,a,β*is
 rl,b,0,rl
 
 analysis: dc
