@@ -924,6 +924,23 @@ def _polar_format(expr, digits: int, unit: str, si: bool = False):
             rf"{mag_latex} \angle {sp.latex(angle)}^\circ")
 
 
+def _infinity_pair(expr):
+    """(plain, latex) for an infinite answer, or None (#305).
+
+    The Results card has always printed a plain ∞ for oo, -oo and zoo
+    alike (see `fmt`/`fmt0`); Evaluate and Solve handed the value to
+    SymPy's own printers, which write complex infinity as `zoo` in text
+    and as ∞ with a tilde in LaTeX. Roberto, 7 Sep 2026: the same sign
+    in every result field. The tilde is SymPy's mark for an infinity of
+    undefined direction -- a nonzero quantity over zero -- and the
+    distinction is not one a circuit answer needs."""
+    import sympy as sp
+    if expr in (sp.oo, -sp.oo, sp.zoo):
+        sign = "-" if expr == -sp.oo else ""
+        return sign + "∞", sign + r"\infty"
+    return None
+
+
 def _plain_with_j(expr) -> str:
     """str() with the imaginary unit written the engineering way."""
     import sympy as sp
@@ -3229,8 +3246,13 @@ def _parse_answer(vstr: str):
     """
     from symbulator.si_prefix import safe_sympify
     import sympy as sp
-    return safe_sympify(_without_unit(vstr),
-                        reserve_imaginary=False).subs(sp.Symbol("I"), sp.I)
+    text = _without_unit(vstr)
+    # #305: an infinite answer is stored as SymPy prints it, and the
+    # restricted namespace knows `oo` but not `zoo` (complex infinity),
+    # which therefore read back as a symbol called zoo.
+    if text.strip() == "zoo":
+        return sp.zoo
+    return safe_sympify(text, reserve_imaginary=False).subs(sp.Symbol("I"), sp.I)
 
 
 def _alias_mapping(values: dict, exclude=(), expr=None):
@@ -3755,6 +3777,9 @@ def evaluate_ui(expr_str: str, values: dict, digits: int = 0,
         # The one formatting recipe this function uses, in one place --
         # it appeared twice, and #175 would have made it twice again.
         def shown_pair(result, *, digits=digits, si=si, approx=approx):
+            inf = _infinity_pair(result)
+            if inf is not None:
+                return inf
             if si:
                 got = _si_format(result, digits)
                 if got is not None:
@@ -3958,6 +3983,9 @@ def solveq_ui(equations, unknowns, values: dict, digits: int = 0,
                     pass
                 has_syms = bool(getattr(expr, "free_symbols", None))
                 show_unit = units and not has_syms
+                inf = _infinity_pair(expr)
+                if inf is not None:
+                    return _with_unit(inf[0], inf[1], unit, show_unit)
                 if si:
                     got = _si_format(expr, digits, unit if show_unit else "")
                     if got is not None:
