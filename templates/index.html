@@ -37,7 +37,7 @@ window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'glo
 //
 // The <script> written below is parser-blocking on purpose: see
 // pack_block() in tools/i18n.py for why it cannot be a fetch.
-window.SYMB_I18N_V = "538e66abcc";
+window.SYMB_I18N_V = "3b23bfd48a";
 // Rewritten to a relative path by build_local.py: the offline page
 // sits at the root of its own folder, and the server serves the
 // app at / and the Numerical Solver at /eqsheet/, so only a
@@ -2697,7 +2697,7 @@ units: yes</pre>
                spans (#148): equations and conditions read "one per line
                or separated by `and`", unknowns "one per line or
                separated by commas", each with an e.g. -->
-          <label for="eqs" data-i18n="add-equations-one-per.a132">Add equations — <span class="hint">one per line or separated
+          <label for="eqs" data-i18n="add-equation-s-one.e3a4">Add equation(s) — <span class="hint">one per line or separated
             by <code>and</code>, e.g. <code>v_2 = 6 and p_e1=10</code>;
             parsed the same as circuit values — SI shorthand like <code>4.7'k</code>
             and, in AC, imaginary units (<code>i</code>/<code>j</code>) both work, but a bare
@@ -2708,14 +2708,14 @@ units: yes</pre>
 
       <div class="row">
         <div>
-          <label for="unks" data-i18n="add-unknowns-one-per.ac15">Add unknowns — <span class="hint">one per line or separated
+          <label for="unks" data-i18n="add-unknown-s-one.7f55">Add unknown(s) — <span class="hint">one per line or separated
             by commas, e.g. <code>vx</code> or <code>v_x</code></span></label>
           <textarea id="unks" spellcheck="false" style="min-height:2.4rem" disabled></textarea>
         </div>
       </div>
       <div class="row">
         <div>
-          <label for="conds" data-i18n="add-conditions-one-per.9e8f">Add conditions
+          <label for="conds" data-i18n="add-condition-s-one.7e29">Add condition(s)
             <span class="hint">— one per line or separated by <code>and</code>,
             e.g. <code>pr1 > 0 and v1 = 12</code>;
             use <code>>=</code> and <code>&lt;=</code>, not <code>=></code> and <code>=&lt;</code></span>
@@ -3342,7 +3342,7 @@ units: yes</pre>
   <a href="https://github.com/Symbulator" target="_blank" rel="noopener">GitHub</a> ·
   <a href="https://pypi.org/project/symbulator/" target="_blank" rel="noopener">PyPI</a></span><br>
   <span data-i18n="free-and-open-source.dd6c">Free and open-source software under the MIT licence · results are symbolic, powered by SymPy</span><br>
-  <span class="notranslate">Symbulator 9 version 2026-09-05 03:57 UTC</span>
+  <span class="notranslate">Symbulator 9 version 2026-09-05 04:22 UTC</span>
 </footer>
 
 <script>
@@ -5673,7 +5673,7 @@ function renderEquations(system) {
   const mjReady = window.MathJax && MathJax.typesetPromise;
   const tex = (t, plain) => {
     const div = document.createElement('div');
-    if (mjReady && t) { div.innerHTML = `\\(${t}\\)`; }
+    if (mjReady && t) { div.innerHTML = `\\(\\displaystyle ${t}\\)`; }
     else { div.style.fontFamily = 'var(--mono)'; div.style.fontSize = '.9rem';
            div.textContent = plain; }
     return div;
@@ -5754,10 +5754,17 @@ async function renderSolveResult(data, idx) {
   const sol = (data.solutions && data.solutions[idx]) || data;
   // If MathJax is ready we render TeX; otherwise fall back to the
   // plain-text form so a slow/failed script load never shows raw \( \).
+  // #280 (Roberto, 6 Sep 2026): \displaystyle, so a fraction is set at
+  // full size and the row or card grows to hold it. Inline TeX drops a
+  // numerator and denominator to script size to fit one text line, which
+  // read as the answer being shrunk. The rows and the element cards were
+  // already sized by their content, so nothing else had to change for a
+  // taller answer, or for a wider card wrapping to a line of its own.
+  // The same prefix is on the Equations card, Evaluate and the Mini-Tools.
   const mjReady = window.MathJax && MathJax.typesetPromise;
   const tex = (t, plain) => {
     const div = document.createElement('div');
-    if (mjReady) { div.innerHTML = `\\(${t}\\)`; }
+    if (mjReady) { div.innerHTML = `\\(\\displaystyle ${t}\\)`; }
     else { div.style.fontFamily = 'var(--mono)'; div.style.fontSize = '.9rem'; div.textContent = plain; }
     return div;
   };
@@ -6428,7 +6435,7 @@ async function evaluate() {
     row.className = 'result-row';
     const math = document.createElement('div');
     math.className = 'result-math';
-    if (mjReady) { math.innerHTML = `\\(${data.latex}\\)`; }
+    if (mjReady) { math.innerHTML = `\\(\\displaystyle ${data.latex}\\)`; }
     else { math.style.fontFamily = 'var(--mono)'; math.textContent = data.plain; }
     row.appendChild(math);
     box.appendChild(row);
@@ -6521,7 +6528,7 @@ async function solveEquations() {
         const math = document.createElement('div');
         math.className = 'result-math';
         if (mjReady) {
-          math.innerHTML = `\\(${nameToTex(v.name)} = ${v.latex}\\)`;
+          math.innerHTML = `\\(\\displaystyle ${nameToTex(v.name)} = ${v.latex}\\)`;
         } else {
           math.style.fontFamily = 'var(--mono)';
           math.textContent = `${v.name} = ${v.plain}`;
