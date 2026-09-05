@@ -37,7 +37,7 @@ window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'glo
 //
 // The <script> written below is parser-blocking on purpose: see
 // pack_block() in tools/i18n.py for why it cannot be a fetch.
-window.SYMB_I18N_V = "0dfaf00823";
+window.SYMB_I18N_V = "28a249a6dd";
 // Rewritten to a relative path by build_local.py: the offline page
 // sits at the root of its own folder, and the server serves the
 // app at / and the Numerical Solver at /eqsheet/, so only a
@@ -1989,6 +1989,14 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
          do -- their two-word forms are half again the width of "Clear
          inputs" and at 375px they had no slack at all. Abbreviating here
          is what lets the dot beside it survive at every width. -->
+    <!-- #308 (Roberto, 7 Sep 2026): fold every card shut in one click.
+         Same shape as Clear inputs -- a button that acts on the page,
+         dressed as a ribbon link, two spellings for the two widths -- and
+         its own dot after it, so the two read as one group of page
+         actions at the ribbon's right-hand end. -->
+    <button type="button" id="collapseAllBtn" class="subbar-action"
+      title="Fold every card shut" data-i18n="collapse-all-cardscollapse.585f" data-i18n-title="fold-every-card-shut.691f"><span class="subbar-lbl">Collapse all cards</span><span class="subbar-lbl-short">Collapse</span></button>
+    <span class="subbar-dot" aria-hidden="true">·</span>
     <button type="button" id="clearAllBtn" class="subbar-action"
       title="Empty every input and start over" data-i18n-title="empty-every-input-and.02e4" data-i18n="clear-inputsclear.9b7a"><span class="subbar-lbl">Clear inputs</span><span class="subbar-lbl-short">Clear</span></button>
     <!-- The dot that separates the two (Roberto, 31 Aug 2026). It is the
@@ -3317,7 +3325,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 11:29 UTC</span><br>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 11:40 UTC</span><br>
   <span class="notranslate" style="white-space:nowrap"><a href="https://symbulator.com" target="_blank" rel="noopener">symbulator.com</a> ·</span>
   <span data-i18n="free-and-open-source.d231">Free and open-source under the MIT licence · Runs on Python+SymPy</span>
 </footer>
@@ -5569,6 +5577,13 @@ function clearAllInputs() {
   refreshEntryLinks();
   persistState();
 }
+
+// #308: every card is a <details>; so are the boxes inside some of them
+// (Settings, Expert Mode, the SymPy help). Closing them all is the one
+// gesture that gives back a page of headings.
+$('collapseAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('.card details[open]').forEach(d => { d.open = false; });
+});
 
 $('clearAllBtn').addEventListener('click', () => {
   // Only ask when clearing would actually lose something. Inputs loaded
