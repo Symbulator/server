@@ -638,9 +638,12 @@ NOT_FOR_READERS = {
 _PROSE_WORD = re.compile(r"\b[A-Za-z]{3,}\b|\b(?:vs|of|to|in|is|no|by|at|on)\b",
                          re.IGNORECASE)
 
-#: Not prose: selectors, CSS, URLs, single identifiers, pure punctuation.
+#: Not prose: selectors, CSS, URLs, single identifiers, pure punctuation,
+#: and TeX handed to MathJax (#280 put \displaystyle at the head of every
+#: typeset result, and "displaystyle" is three letters or more).
 _NOT_PROSE = re.compile(
     r"^(?:[.#][\w-]+)$"
+    r"|^\\\\\("
     r"|^[a-z-]+\s*:\s*[^;]*;?$"
     r"|^https?://"
     r"|^[\w.$-]+$"
