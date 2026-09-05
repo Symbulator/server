@@ -304,7 +304,7 @@ def index():
 # The build stamp shown in the page footer, read out of the template the
 # same way a reader would read it off the page.
 _BUILD_RE = re.compile(
-    r"Symbulator 9 version (\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)")
+    r"Release (\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)")
 _TEMPLATE = os.path.join(app.root_path, "templates", "index.html")
 
 

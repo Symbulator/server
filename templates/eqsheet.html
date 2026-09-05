@@ -37,7 +37,7 @@
 //
 // The <script> written below is parser-blocking on purpose: see
 // pack_block() in tools/i18n.py for why it cannot be a fetch.
-window.SYMB_I18N_V = "3b23bfd48a";
+window.SYMB_I18N_V = "8099dcd12c";
 // Rewritten to a relative path by build_local.py: the offline page
 // sits at the root of its own folder, and the server serves the
 // app at / and the Numerical Solver at /eqsheet/, so only a
@@ -346,7 +346,7 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
     --lcd: #15100d;
     --lcd-edge: #4a3e33;
   }
-  /* Gray and gold */
+  /* Gray & gold */
   html[data-palette="graygold"] {
     --navy: #3b4048;
     --navy-2: #484e57;
@@ -492,7 +492,7 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
     --lcd: #0b1617;
     --lcd-edge: #2f4a4b;
   }
-  /* High contrast */
+  /* Contrast */
   html[data-palette="highcontrast"] {
     --navy: #000000;
     --navy-2: #111111;
@@ -2069,11 +2069,11 @@ function paletteNames() {
     brick: t('js.palette.brick', 'Brick'),
     walnut: t('js.palette.walnut', 'Walnut'),
     earth: t('js.palette.earth', 'Earth'),
-    graygold: t('js.palette.graygold', 'Gray and gold'),
+    graygold: t('js.palette.graygold', 'Gray & gold'),
     firefly: t('js.palette.firefly', 'Firefly'),
     forest: t('js.palette.forest', 'Forest'),
     turquoise: t('js.palette.turquoise', 'Turquoise'),
-    highcontrast: t('js.palette.highcontrast', 'High contrast'),
+    highcontrast: t('js.palette.highcontrast', 'Contrast'),
   };
 }
 function currentPalette() {

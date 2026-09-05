@@ -25,8 +25,9 @@ a file version 9 changes about once a year collide almost never, and when
 they do the conflict is two lines and obviously about branding.
 
 **The footer is not one of these, and that is Roberto's ruling of 4 Sep
-2026.** The page foot reads "Symbulator 9 version <stamp>" in a fork
-too, and stays that way: version 9 and X are the same application, so
+2026.** The page foot reads the same in a fork -- since #285 *Symbulator
+by Roberto Perez-Franco (1999–2026) · Release <stamp>*, naming no
+version at all -- and stays that way: version 9 and X are the same application, so
 the version the footer names is the version of the code, not of the
 site serving it. It was queried the day X was merged up to #255 and
 answered *leave it at 9 until there is any substantial difference in X*.

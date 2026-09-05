@@ -37,7 +37,7 @@ window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'glo
 //
 // The <script> written below is parser-blocking on purpose: see
 // pack_block() in tools/i18n.py for why it cannot be a fetch.
-window.SYMB_I18N_V = "3b23bfd48a";
+window.SYMB_I18N_V = "8099dcd12c";
 // Rewritten to a relative path by build_local.py: the offline page
 // sits at the root of its own folder, and the server serves the
 // app at / and the Numerical Solver at /eqsheet/, so only a
@@ -613,7 +613,7 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
     --note-bg: #32281e;
     --note-line: #6a5236;
   }
-  /* Gray and gold */
+  /* Gray & gold */
   html[data-palette="graygold"] {
     --navy: #3b4048;
     --navy-2: #484e57;
@@ -867,7 +867,7 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
     --note-bg: #183434;
     --note-line: #286a66;
   }
-  /* High contrast */
+  /* Contrast */
   html[data-palette="highcontrast"] {
     --navy: #000000;
     --navy-2: #111111;
@@ -3325,24 +3325,24 @@ units: yes</pre>
 </main>
 
 <footer>
-  <!-- Two unbreakable segments (#150): if the line must wrap on a
-       narrow screen, it breaks between the copyright and the links,
-       never inside either -- the separator dot leads the second line,
-       per Roberto's example of 29 Aug 2026. -->
-  <!-- #197: the licence line is prose and translates; the copyright, the
-       four links and the build stamp are not and must not. The stamp
-       especially: build_local.py rewrites it with STAMP_RE and expects to
-       find it exactly once in this file, so a copy of it inside a
-       translation dictionary would fail the build (loudly, which is the
-       good outcome) or freeze the version a reader is told they have. -->
-  <span class="notranslate" style="white-space:nowrap">Symbulator © 1999–2026 Roberto Perez-Franco</span>
-  <span class="notranslate" style="white-space:nowrap">·
-  <a href="https://symbulator.com" target="_blank" rel="noopener">symbulator.com</a> ·
-  <a href="https://www.facebook.com/Symbulator/" target="_blank" rel="noopener">Facebook</a> ·
-  <a href="https://github.com/Symbulator" target="_blank" rel="noopener">GitHub</a> ·
-  <a href="https://pypi.org/project/symbulator/" target="_blank" rel="noopener">PyPI</a></span><br>
-  <span data-i18n="free-and-open-source.dd6c">Free and open-source software under the MIT licence · results are symbolic, powered by SymPy</span><br>
-  <span class="notranslate">Symbulator 9 version 2026-09-05 04:22 UTC</span>
+  <!-- #285 (Roberto, 6 Sep 2026): two lines, his wording. The first is
+       the work and its release, the second where it lives and what it
+       is. No copyright sign: the code is MIT-licensed in every
+       repository, and the licence carries the notice.
+
+       Unbreakable segments (#150): on a narrow screen a line breaks at
+       a separator, never inside a segment, and the dot leads the
+       continuation.
+
+       #197: the licence phrase is prose and translates; the name, the
+       link and the build stamp are not and must not. The stamp
+       especially: build_local.py rewrites it with STAMP_RE and the
+       server's /healthz reads it with _BUILD_RE, both keyed on the
+       word Release, and each expects it exactly once in this file. -->
+  <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 05:40 UTC</span><br>
+  <span class="notranslate" style="white-space:nowrap"><a href="https://symbulator.com" target="_blank" rel="noopener">symbulator.com</a> ·</span>
+  <span data-i18n="free-and-open-source.d231">Free and open-source under the MIT licence · Runs on Python+SymPy</span>
 </footer>
 
 <script>
@@ -7118,11 +7118,11 @@ function paletteNames() {
     brick: t('js.palette.brick', 'Brick'),
     walnut: t('js.palette.walnut', 'Walnut'),
     earth: t('js.palette.earth', 'Earth'),
-    graygold: t('js.palette.graygold', 'Gray and gold'),
+    graygold: t('js.palette.graygold', 'Gray & gold'),
     firefly: t('js.palette.firefly', 'Firefly'),
     forest: t('js.palette.forest', 'Forest'),
     turquoise: t('js.palette.turquoise', 'Turquoise'),
-    highcontrast: t('js.palette.highcontrast', 'High contrast'),
+    highcontrast: t('js.palette.highcontrast', 'Contrast'),
   };
 }
 function currentPalette() {
