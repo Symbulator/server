@@ -123,10 +123,10 @@ rL,n,0,168
 j,0,n,180'm
 
 analysis: dc
-note: The equivalent from the previous entry, as the Load circuit equivalent button writes it, with the load changed to 168 ohm and the 180 mA source added. Find the current through RL: the rl block reads -0.06 A, that is, 60 mA flowing from 0 to n.
+note: The equivalent from the previous entry, as the Load circuit equivalent button writes it, with the load changed to 168 ohm and the 180 mA source added. Find the current through RL: with SI prefixes on, irl reads -60 mA, that is, 60 mA flowing from 0 to n.
 defines: iNo=-9/25
 defines: rEq=84
 image: https://learn.symbulator.com/assets/circuit/rm3e0908.jpg
 rounding: 3
-si: no
+si: yes
 units: yes

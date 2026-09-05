@@ -2587,21 +2587,6 @@ units: yes</pre>
       <div id="loadField">
         <label class="checkline"><input type="checkbox" id="withLoad"><span data-i18n="are-you-running-a.de25">Are you
           running a problem with a load connected to this equivalent circuit?</span></label>
-        <div id="loadSubfield" hidden style="margin-top:.5rem">
-          <!-- #299 (Roberto, 7 Sep 2026): disabled until a Thévenin run has
-               been made, and disabled again the moment an input changes --
-               it writes ino and req, so it lives only while a Thévenin
-               result is fresh. paintFreshness('solve') keeps it in step. -->
-          <button type="button" id="loadEquivBtn" disabled data-i18n="load-circuit-equivalent.7e34">Load circuit equivalent?</button>
-          <div id="loadEquivWarn" class="booknote warn" hidden style="margin-top:.6rem">
-            <p style="margin:0 0 .55rem" data-i18n="loading-the-equivalent-circu.cf5f">Loading the equivalent circuit will
-              overwrite the Circuit Description, Define and Expert Mode fields, and
-              switch the analysis to Solve circuit. If the current circuit is not
-              saved yet, cancel and save it first.</p>
-            <button type="button" id="loadEquivGo" data-i18n="proceed.02ed">Proceed</button>
-            <button type="button" id="loadEquivNo" class="linkish" style="margin-left:.6rem" data-i18n="cancel.77df">Cancel</button>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -2779,6 +2764,24 @@ units: yes</pre>
       <summary class="results-h section-toggle" data-i18n="results.612e">Results</summary>
       <div id="out">
         <div class="lcd"><div class="placeholder">— no analysis run yet —</div></div>
+      </div>
+      <!-- #292/#299/#300: the calculator's eqcir, as a button. Shown under
+           the Thévenin / Norton answers when the load question is ticked
+           (#300, Roberto, 7 Sep 2026: "under the results of the Thevenin
+           equivalent at the end of the card"); disabled until a Thévenin
+           run has been made and again the moment an input changes (#299),
+           since it writes ino and req. paintFreshness('solve') keeps the
+           button in step; syncLoadEquivBox() the box. -->
+      <div id="loadEquivBox" hidden style="margin-top:.8rem">
+        <button type="button" id="loadEquivBtn" disabled data-i18n="load-circuit-equivalent.7e34">Load circuit equivalent?</button>
+        <div id="loadEquivWarn" class="booknote warn" hidden style="margin-top:.6rem">
+          <p style="margin:0 0 .55rem" data-i18n="loading-the-equivalent-circu.cf5f">Loading the equivalent circuit will
+            overwrite the Circuit Description, Define and Expert Mode fields, and
+            switch the analysis to Solve circuit. If the current circuit is not
+            saved yet, cancel and save it first.</p>
+          <button type="button" id="loadEquivGo" data-i18n="proceed.02ed">Proceed</button>
+          <button type="button" id="loadEquivNo" class="linkish" style="margin-left:.6rem" data-i18n="cancel.77df">Cancel</button>
+        </div>
       </div>
     </details>
   </div>
@@ -3377,7 +3380,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 10:27 UTC</span><br>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-05 10:38 UTC</span><br>
   <span class="notranslate" style="white-space:nowrap"><a href="https://symbulator.com" target="_blank" rel="noopener">symbulator.com</a> ·</span>
   <span data-i18n="free-and-open-source.d231">Free and open-source under the MIT licence · Runs on Python+SymPy</span>
 </footer>
@@ -3676,13 +3679,23 @@ $('withLoad').addEventListener('change', () => {
   persistState();
 });
 
-// Setting .checked fires no change event, so the button under the tick
+// Setting .checked fires no change event, so the box under the results
 // has to be shown or hidden by hand -- from a loaded entry, from Clear
 // all, and from the tick itself. Any open warning goes with it.
 function setWithLoad(on) {
   $('withLoad').checked = on;
-  $('loadSubfield').hidden = !on;
   $('loadEquivWarn').hidden = true;
+  syncLoadEquivBox();
+}
+
+// #300: the box at the foot of Results holds the button. It is there
+// when the tick is on and the answers on screen are a Thévenin run --
+// `last`, not `lastSolve`, because an edited input stales the solve
+// without taking the answers off the screen, and the button should then
+// go dead (#299) rather than vanish.
+function syncLoadEquivBox() {
+  $('loadEquivBox').hidden = !($('withLoad').checked && last && last.tool === 'th');
+  syncLoadEquivBtn();
 }
 
 // #299: the button is live only while a fresh Thévenin result is on
@@ -3954,7 +3967,7 @@ let lastSolve = null;
 function activatePostSolve() {
   $('resultsCard').classList.remove('inactive');
   // Evaluate is not here: it is live from the start (#291).
-  syncLoadEquivBtn();   // #299: `last` is the new run by now
+  syncLoadEquivBox();   // #299/#300: `last` is the new run by now
   $('solveqEqs').disabled = false;
   $('solveqEqs').placeholder = t('js.solveq.hint', 'e.g. p_r2 = 0.05');
   $('solveqUnks').disabled = false;
@@ -4002,6 +4015,8 @@ function clearResults() {
   $('equationsCard').classList.add('inactive');
   $('status').textContent = '';
   $('resultsCard').classList.add('inactive');
+  $('loadEquivBox').hidden = true;                                 // #300
+  $('loadEquivWarn').hidden = true;
   // Evaluate stays active (#291): only its last answer is cleared, since
   // pr(...) and Define need no circuit.
   $('evalOut').innerHTML = '';
