@@ -20,19 +20,42 @@ rounding: 6
 si: no
 units: yes
 
-[NR12's Example 3.10 (DC, Expert Mode)]
+[NR12's Example 3.10 (DC)]
 
-e,1,0,vs
+e,1,0,V_s
 r1,1,a,1'k
 r2,1,b,4'k
-rg,a,b,rg
-r3,a,0,r3
-rx,b,0,rx
+sg,a,b
+r3,a,0,R_3
+rx,b,0,R_x
 
 analysis: dc
-equations: i_rg = 0
-unknowns: rx
+solve_equations: isg = 0
+solve_unknowns: R_x
+solve_conditions: R_3 = 10
+solve_real_only: yes
 note: For the Wheatstone bridge in Fig. 3.30, R_3 can be varied from 10 Ω to 2 kΩ. What range of resistor values can this bridge measure?
+image: https://learn.symbulator.com/assets/circuit/nr12-ex3-10.jpg
+rounding: 6
+si: no
+units: yes
+
+[NR12's Example 3.10 (DC, Solve at R_3 = 2k)]
+
+e,1,0,V_s
+r1,1,a,1'k
+r2,1,b,4'k
+sg,a,b
+r3,a,0,R_3
+rx,b,0,R_x
+
+analysis: dc
+solve_equations: isg = 0
+solve_unknowns: R_x
+solve_conditions: R_3 = 2'k
+solve_real_only: yes
+note: For the Wheatstone bridge in Fig. 3.30, R_3 can be varied from 10 Ω to 2 kΩ. What range of resistor values can this bridge measure?
+note: The same circuit with the Solve card filled in for the other end of the dial, R_3 = 2 kΩ.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex3-10.jpg
 rounding: 6
 si: no
