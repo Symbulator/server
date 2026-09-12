@@ -2822,10 +2822,18 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
                             # to change a sign every time a source is
                             # asked about.
                             plain, latex = fmt(-values[key], unit)
-                            items.append({"sym": "-p", "label": "power delivered",
+                            # In AC the row says "real" (Roberto, 13 Sep
+                            # 2026): under RMS `p` is the average power
+                            # and the card pairs it with `-s` below.
+                            items.append({"sym": "-p",
+                                          "label": ("real power delivered"
+                                                    if domain == "ac" else
+                                                    "power delivered"),
                                           "plain": plain, "latex": latex})
                         else:
                             plain, latex = fmt(values[key], unit)
+                            if domain == "ac" and pattern == "p_{n}":
+                                label = "real power consumed"
                             items.append({"sym": symbol, "label": label,
                                           "plain": plain, "latex": latex})
                         used.add(key)
@@ -2843,7 +2851,7 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
                         if s_ac is not None and not s_ac.free_symbols and s_ac != 0:
                             magnitude, direction = _pf_reading(complex(s_ac), digits or 4)
                             body = f"{magnitude} {direction}".strip()
-                            items.append({"sym": "pf", "label": "delivered — power factor",
+                            items.append({"sym": "pf", "label": "power factor (delivered)",
                                           "plain": body,
                                           "latex": rf"\text{{{body}}}"})
                 if items:

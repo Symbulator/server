@@ -886,7 +886,8 @@ def srv_vocabulary() -> set:
     words.add("power delivered")
     words.add("real power delivered")
     words.add("complex power delivered")
-    words.add("delivered — power factor")
+    words.add("power factor (delivered)")
+    words.add("real power consumed")
     return words
 
 
