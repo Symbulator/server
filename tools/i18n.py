@@ -881,6 +881,11 @@ def srv_vocabulary() -> set:
     # Not in any of those tables: built inline, one per port node (#168).
     words.add("current through")
     words.add("voltage drop")
+    # A source's card: the power it delivers (#434) and, in AC, the power
+    # factor of that power (#435) -- built inline in the element loop.
+    words.add("power delivered")
+    words.add("average power delivered")
+    words.add("power factor")
     return words
 
 

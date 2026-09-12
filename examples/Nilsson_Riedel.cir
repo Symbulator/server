@@ -14,7 +14,7 @@ r6,4,0,30
 r7,1,0,24
 
 analysis: dc
-note: Use current division to find the current i_o and use voltage division to find the voltage v_o for the circuit in the figure.
+note: Find the current i_o and the voltage v_o for the circuit in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex3-7.jpg
 rounding: 6
 si: no
@@ -68,7 +68,7 @@ r5,3,4,2
 e2,4,0,8*ir3
 
 analysis: dc
-note: Use the node-voltage method to find the power dissipated in the 5 Ω resistor in the circuit shown in the figure.
+note: Find the power dissipated in the 5 Ω resistor in the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-4.jpg
 rounding: 6
 si: no
@@ -84,7 +84,7 @@ r4,2,0,20
 e2,3,0,15*ir4
 
 analysis: dc
-note: Use the mesh-current method to find the power dissipated in the 4 Ω resistor in the circuit shown in the figure.
+note: Find the power dissipated in the 4 Ω resistor in the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-7.jpg
 rounding: 6
 si: no
@@ -99,7 +99,7 @@ r3,2,0,40
 j,0,2,3
 
 analysis: dc
-note: Use the mesh-current method to find branch currents i_a, i_b and i_c in the circuit for Example 4.3, repeated here in the figure.
+note: Find the branch currents i_a, i_b and i_c in the circuit for Example 4.3, repeated here in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-8.jpg
 rounding: 6
 si: no
@@ -117,7 +117,7 @@ r5,2,3,5
 r6,3,0,15
 
 analysis: dc
-note: a) Use source transformations to find the voltage v_o in the circuit shown in the figure. b) Find the power developed by the 250 V voltage source. c) Find the power developed by the 8 A current source.
+note: a) Find the voltage v_o in the circuit shown in the figure. b) Find the power developed by the 250 V voltage source. c) Find the power developed by the 8 A current source.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-13.jpg
 rounding: 6
 si: no
@@ -150,7 +150,7 @@ j2,b,a,0.4*vr3
 e2,0,c,2*ir1
 
 analysis: dc
-note: Use the principle of superposition to find v_o in the circuit shown in the figure.
+note: Find v_o in the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-23.jpg
 rounding: 6
 si: no
@@ -518,7 +518,7 @@ l2,2,3,10
 r2,3,0,48
 
 analysis: tr
-note: The circuit in the figure has no initial stored energy. At t = 0 the switch closes. Use Laplace methods to find i_1(t) and i_2(t) for t ≥ 0.
+note: The circuit in the figure has no initial stored energy. At t = 0 the switch closes. Find i_1(t) and i_2(t) for t ≥ 0.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-5.jpg
 rounding: 6
 si: no
@@ -536,7 +536,7 @@ r2b,q,c,2
 r10,c,d,10
 
 analysis: dc
-note: The make-before-break switch in the circuit in the figure has been in position a for a long time. At t = 0 it moves instantaneously to position b. Use Laplace methods to find i_2(t) for t ≥ 0.
+note: The make-before-break switch in the circuit in the figure has been in position a for a long time. At t = 0 it moves instantaneously to position b. Find i_2(t) for t ≥ 0.
 note: This is the circuit at position a, before the switch moves, run in DC to find the two coil currents, which the next entry takes as its initial conditions.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-7.jpg
 rounding: 6
@@ -553,7 +553,7 @@ r2b,q,c,2
 r10,c,d,10
 
 analysis: tr
-note: The make-before-break switch in the circuit in the figure has been in position a for a long time. At t = 0 it moves instantaneously to position b. Use Laplace methods to find i_2(t) for t ≥ 0.
+note: The make-before-break switch in the circuit in the figure has been in position a for a long time. At t = 0 it moves instantaneously to position b. Find i_2(t) for t ≥ 0.
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-7.jpg
 rounding: 6
@@ -569,7 +569,7 @@ r2,0,4,15
 l2,4,0,2
 
 analysis: dc
-note: The switch in the circuit shown in the figure has been closed for a long time. At t = 0 it opens. Use Laplace methods to find the output voltage v_o and the current in the 3 H inductor, i_1.
+note: The switch in the circuit shown in the figure has been closed for a long time. At t = 0 it opens. Find the output voltage v_o and the current in the 3 H inductor, i_1.
 note: This is the circuit with the switch closed, run in DC to find the two inductor currents, which the next entry takes as its initial conditions.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-13.jpg
 rounding: 6
@@ -585,7 +585,7 @@ r2,3,4,15
 l2,4,0,2,0
 
 analysis: tr
-note: The switch in the circuit shown in the figure has been closed for a long time. At t = 0 it opens. Use Laplace methods to find the output voltage v_o and the current in the 3 H inductor, i_1.
+note: The switch in the circuit shown in the figure has been closed for a long time. At t = 0 it opens. Find the output voltage v_o and the current in the 3 H inductor, i_1.
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-13.jpg
 rounding: 6
@@ -621,7 +621,7 @@ r5,c,0,-20j
 
 analysis: ac
 omega: omega
-note: Use a delta-to-wye impedance transformation to find I_0, I_1, I_2, I_3, I_4, I_5, V_1 and V_2 in the circuit in the figure.
+note: Find I_0, I_1, I_2, I_3, I_4, I_5, V_1 and V_2 in the circuit in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex9-10.jpg
 rounding: 6
 si: no
@@ -664,7 +664,7 @@ e2,b,0,39*ir3
 
 analysis: ac
 omega: omega
-note: Use the mesh-current method to find the voltages V_1, V_2 and V_3 in the circuit shown in the figure.
+note: Find the voltages V_1, V_2 and V_3 in the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex9-14.jpg
 rounding: 6
 si: no
@@ -769,7 +769,7 @@ r0,1,2,10'k
 c,2,0,0.5'u
 
 analysis: dc
-note: The circuit in the figure was analyzed in Example 7.3 using first-order circuit analysis techniques. Use the Laplace transform method to find v_o(t) for t ≥ 0+.
+note: The circuit in the figure is the circuit of Example 7.3. Find v_o(t) for t ≥ 0+.
 note: This is the circuit at position x, before the switch moves, run in DC to find the capacitor's voltage, which the next entry takes as its initial condition.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-2.jpg
 rounding: 6
@@ -784,7 +784,7 @@ r2,2,0,240'k
 r3,2,0,60'k
 
 analysis: fd
-note: The circuit in the figure was analyzed in Example 7.3 using first-order circuit analysis techniques. Use the Laplace transform method to find v_o(t) for t ≥ 0+.
+note: The circuit in the figure is the circuit of Example 7.3. Find v_o(t) for t ≥ 0+.
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-2.jpg
 rounding: 6
@@ -799,7 +799,7 @@ l,1,0,25'm,0.029
 r,1,0,500
 
 analysis: fd
-note: Consider the circuit in the figure, where the initial current in the inductor is 29 mA and the initial voltage across the capacitor is 50 V. This circuit was analyzed in Example 8.10 using second-order circuit analysis techniques. Use the Laplace transform method to find v(t) for t ≥ 0.
+note: Consider the circuit in the figure, where the initial current in the inductor is 29 mA and the initial voltage across the capacitor is 50 V. Find v(t) for t ≥ 0.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-3.jpg
 rounding: 6
 si: no
@@ -816,7 +816,7 @@ analysis: fd
 tool: th
 n1: a
 n2: 0
-note: The circuit in the figure has no initial stored energy, and at t = 0 the switch closes. Find the Thevenin equivalent for the circuit to the left of the terminals a and b in the s domain, using Laplace methods.
+note: The circuit in the figure has no initial stored energy, and at t = 0 the switch closes. Find the Thevenin equivalent for the circuit to the left of the terminals a and b in the s domain.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-6.jpg
 rounding: 6
 si: no

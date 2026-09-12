@@ -43,7 +43,7 @@ window.MathJax = { tex: { inlineMath: [['\\(', '\\)']] }, svg: { fontCache: 'glo
 //
 // The <script> written below is parser-blocking on purpose: see
 // pack_block() in tools/i18n.py for why it cannot be a fetch.
-window.SYMB_I18N_V = "364e1a5249";
+window.SYMB_I18N_V = "40347dc235";
 // Rewritten to a relative path by build_local.py: the offline page
 // sits at the root of its own folder, and the server serves the
 // app at / and the Numerical Solver at /eqsheet/, so only a
@@ -3739,7 +3739,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-12 21:02 UTC</span>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-12 21:36 UTC</span>
 </footer>
 
 <script>
@@ -4016,7 +4016,19 @@ function syncFields() {
   // expert-mode extras at all -- hide it.
   $('expertBox').style.display = tool === 'solve' ? 'block' : 'none';
 }
-domainSel.addEventListener('change', () => { syncFields(); syncSettings(); });
+// #435 (Roberto, 13 Sep 2026): "real solutions only" is ticked by default
+// in DC and TR, where a complex root of a real circuit is never physical,
+// and unticked in AC and FD, where phasors and s are complex by nature. A
+// tick, not a rule: the reader can still untick it to see a complex root,
+// and a loaded entry's own `solve_real_only:` wins over the default.
+function defaultRealOnly() {
+  return domainSel.value === 'dc' || domainSel.value === 'tr';
+}
+domainSel.addEventListener('change', () => {
+  $('solveqReal').checked = defaultRealOnly();
+  syncFields(); syncSettings();
+});
+$('solveqReal').checked = defaultRealOnly();
 
 toolSel.addEventListener('change', syncFields);
 $('equivType').addEventListener('change', syncFields);
@@ -5231,7 +5243,8 @@ function applyCircuit(c) {
   $('solveqEqs').value = (c.solve_equations || []).join('\n');
   $('solveqConds').value = (c.solve_conditions || []).join('\n');
   $('solveqUnks').value = c.solve_unknowns || '';
-  $('solveqReal').checked = !!c.solve_real_only;
+  $('solveqReal').checked = (c.solve_real_only === undefined || c.solve_real_only === null)
+    ? defaultRealOnly() : !!c.solve_real_only;
 
   showNote(c.note || '', false);
   showEntryImage(c.image || '');
@@ -6175,7 +6188,7 @@ function clearAllInputs() {
   // The other three tools
   $('evalExpr').value = ''; $('evalConds').value = '';
   $('solveqEqs').value = ''; $('solveqConds').value = ''; $('solveqUnks').value = '';
-  $('solveqReal').checked = false;
+  $('solveqReal').checked = defaultRealOnly();
   $('plotKey').value = ''; $('plotX').value = '';
   $('plotMin').value = ''; $('plotMax').value = '';
   $('plotN').value = 300;

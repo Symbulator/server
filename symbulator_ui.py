@@ -2797,10 +2797,45 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
                 for pattern, symbol, label, unit in _ELEMENT_KEYS:
                     key = pattern.format(n=el.name)
                     if key in values:
-                        plain, latex = fmt(values[key], unit)
-                        items.append({"sym": symbol, "label": label,
-                                      "plain": plain, "latex": latex})
+                        if symbol == "p" and pattern == "ap_{n}" and el.kind in "ej":
+                            # and in AC the average power the source delivers
+                            plain, latex = fmt(-values[key], unit)
+                            items.append({"sym": "-p", "label": "average power delivered",
+                                          "plain": plain, "latex": latex})
+                        elif symbol == "p" and pattern == "p_{n}" and el.kind in "ej":
+                            # #434 (Roberto, 13 Sep 2026): a source's card
+                            # reads the power it DELIVERS, `-pe1 = 10 W`,
+                            # labelled so. The answer `p_e1` itself is
+                            # unchanged -- p is always power consumed, in
+                            # Evaluate, Solve and every file -- only what
+                            # the card shows, so that a reader is not told
+                            # to change a sign every time a source is
+                            # asked about.
+                            plain, latex = fmt(-values[key], unit)
+                            items.append({"sym": "-p", "label": "power delivered",
+                                          "plain": plain, "latex": latex})
+                        else:
+                            plain, latex = fmt(values[key], unit)
+                            items.append({"sym": symbol, "label": label,
+                                          "plain": plain, "latex": latex})
                         used.add(key)
+                if domain == "ac" and el.kind in "ej":
+                    # #435: in AC a source's card also carries the power
+                    # factor of the power it delivers -- the pf tool's own
+                    # element reading (#430), current negated first -- when
+                    # the voltage and current came out as numbers.
+                    v_ac, i_ac = values.get(f"v_{el.name}"), values.get(f"i_{el.name}")
+                    if v_ac is not None and i_ac is not None:
+                        try:
+                            s_ac = sp.N(sp.simplify(v_ac * sp.conjugate(-i_ac)))
+                        except Exception:                   # noqa: BLE001
+                            s_ac = None
+                        if s_ac is not None and not s_ac.free_symbols and s_ac != 0:
+                            magnitude, direction = _pf_reading(complex(s_ac), digits or 4)
+                            body = f"{magnitude} {direction}".strip()
+                            items.append({"sym": "pf", "label": "power factor",
+                                          "plain": body,
+                                          "latex": rf"\text{{{body}}}"})
                 if items:
                     element_cards.append({"name": el.name,
                                           "kind": _KIND_LABEL.get(el.kind, el.kind),
