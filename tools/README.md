@@ -337,3 +337,20 @@ Not wired into `build_local.py`: it solves 67 circuits and takes a minute
 or two. Run it after touching a book, the plot tools or
 `symbulator_ui.py`. It was proved red three ways on Lesson 11 before it
 was trusted: a wrong key, `time`, and an inverted range.
+
+## `check_solveq_conditions.py` — the Solve card reads `name = value` as Expert Mode does (#433)
+
+Runs NR12's Example 3.10 — the Wheatstone bridge with the galvanometer
+as a short — through the real app, `solve_ui` then `solveq_ui` on the
+values the page holds, and asserts that a condition `R_3 = 10`
+substitutes, that `R_3 = 10` as a second equation is solved rather than
+dropped, that the answer stays the symbolic `4 R_3` when nothing sets
+`R_3`, that an inequality still filters, that an equality on the unknown
+itself still filters, and that the Solve card and Expert Mode agree to
+the digit.
+
+    py tools/check_solveq_conditions.py
+    py tools/check_solveq_conditions.py --prove-red    # both halves off; must FAIL
+
+Run it after touching `solveq_ui`, `_equality_binding` or
+`_conditions_hold` in `symbulator_ui.py`.

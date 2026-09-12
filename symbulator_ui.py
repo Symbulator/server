@@ -3993,6 +3993,25 @@ def _parse_condition(text: str):
     return _sympify_input(text)
 
 
+def _equality_binding(cond, wanted):
+    """`(symbol, value)` when a parsed condition is an equality with a
+    bare symbol on one side -- `R_3 = 10`, `10 = R_3` -- and that symbol
+    is not one of the unknowns being solved for; `(None, None)` for
+    anything else (an inequality, a chained comparison, an equality
+    between two expressions, an equality on an unknown). The first kind
+    is the calculator's `|` operator, a substitution; the rest stay
+    filters on the solutions (#433)."""
+    import sympy as sp
+
+    if not isinstance(cond, sp.Equality):
+        return None, None
+    names = {str(w) for w in wanted}
+    for sym, other in ((cond.lhs, cond.rhs), (cond.rhs, cond.lhs)):
+        if isinstance(sym, sp.Symbol) and str(sym) not in names:
+            return sym, other
+    return None, None
+
+
 def _conditions_hold(sol, conditions, values, wanted) -> bool:
     """True if every parsed condition holds once the solved unknowns and
     the circuit's known answers are substituted in. A condition that
@@ -4580,12 +4599,49 @@ def solveq_ui(equations, unknowns, values: dict, digits: int = 0,
             eqs.append(eq.subs(_alias_mapping(
                 values, exclude=[str(w) for w in wanted], expr=eq)))
 
+        # #433: the card's conditions follow the solver's own rule for
+        # Expert Mode's -- the calculator's `|` ("with") operator. An
+        # EQUALITY on a bare symbol, `R_3 = 10`, is a substitution applied
+        # to the equations before solving; an INEQUALITY, `x > 0`, is a
+        # filter on the solutions after. Until #433 every condition was a
+        # filter, and `R_3 = 10` tested against `R_x = 4*R_3` decides
+        # nothing, so it was kept as satisfied and changed nothing: the
+        # card answered `4 R_3` where Expert Mode answered 40 Ω.
+        parsed_conds = [_parse_condition(c) for c in conditions] if conditions else []
+        with_map = {}
+        filters = []
+        for cond in parsed_conds:
+            sym, val = _equality_binding(cond, wanted)
+            if sym is not None:
+                with_map[sym] = val.subs(with_map)
+            else:
+                filters.append(cond)
+        if with_map:
+            eqs = [eq.subs(with_map) for eq in eqs]
+
         if not wanted:
             # Nothing named: solve for whatever symbols remain.
             free = set()
             for eq in eqs:
                 free |= eq.free_symbols
             wanted = sorted(free, key=str)
+        else:
+            # #433, the other half: an equation that names none of the
+            # unknowns -- `R_3 = 10` beside `isg = 0` with `R_x` asked for
+            # -- used to be dropped on the floor, because sp.solve() is
+            # asked only for the named unknowns and an equation with none
+            # of them in it constrains nothing it is solving. The solver
+            # picks such a symbol up as an unknown of its own accord
+            # ("a brand-new symbol appearing in an extra equation becomes
+            # an unknown automatically"), and so does the card now.
+            named = set(wanted)
+            for eq in eqs:
+                if eq.free_symbols & named:
+                    continue
+                for sym in sorted(eq.free_symbols, key=str):
+                    if sym not in named and str(sym) not in ("s", "t"):
+                        wanted.append(sym)
+                        named.add(sym)
         if not wanted:
             return _err(msg(M_NOTHING_TO_SOLVE))
 
@@ -4619,8 +4675,7 @@ def solveq_ui(equations, unknowns, values: dict, digits: int = 0,
             sols = [s for s in sols if all(_is_real(v) for v in s.values())]
 
         had_sols = bool(sols)
-        if conditions:
-            parsed_conds = [_parse_condition(c) for c in conditions]
+        if filters:
             if real_only and real_map:
                 # The unknowns were re-declared as real above, so a
                 # solution is keyed by Symbol("w", real=True) while the
@@ -4628,12 +4683,12 @@ def solveq_ui(equations, unknowns, values: dict, digits: int = 0,
                 # are different symbols and subs() silently does nothing,
                 # which left the condition unevaluated and every root
                 # kept -- `w > 0` quietly filtering nothing at all.
-                parsed_conds = [c.xreplace(real_map) for c in parsed_conds]
+                filters = [c.xreplace(real_map) for c in filters]
             sols = [s for s in sols
-                    if _conditions_hold(s, parsed_conds, values, wanted)]
+                    if _conditions_hold(s, filters, values, wanted)]
 
         if not sols:
-            if conditions and had_sols:
+            if filters and had_sols:
                 return _ok({"solutions": [],
                             "unknowns": [str(w) for w in wanted],
                             "notes": [msg(M_NO_SOLUTION_COND)]})
