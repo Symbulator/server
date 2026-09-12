@@ -1477,11 +1477,14 @@ _KIND_LABEL = {
 
 # Per-element derived keys, in display order, with human labels.
 _ELEMENT_KEYS = [
+    # Roberto's rule, 13 Sep 2026: "power" never stands alone on a card --
+    # it is consumed or delivered, said explicitly. These are the consumed
+    # forms; a source's card negates the value and says "delivered" (#434).
     ("p_{n}", "p", "power consumed", "W"),
-    ("ap_{n}", "p", "average power", "W"),
+    ("ap_{n}", "p", "real power consumed", "W"),
     # Complex power S = V*conj(I): its magnitude is apparent power in
     # volt-amperes, its real part watts, its imaginary part reactive var.
-    ("s_{n}", "s", "complex power", "VA"),
+    ("s_{n}", "s", "complex power consumed", "VA"),
     ("z_{n}", "z", "impedance seen", "ohm"),
     ("r_{n}", "r", "resistance seen", "ohm"),
 ]
@@ -2800,7 +2803,14 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
                         if symbol == "p" and pattern == "ap_{n}" and el.kind in "ej":
                             # and in AC the average power the source delivers
                             plain, latex = fmt(-values[key], unit)
-                            items.append({"sym": "-p", "label": "average power delivered",
+                            items.append({"sym": "-p", "label": "real power delivered",
+                                          "plain": plain, "latex": latex})
+                        elif symbol == "s" and el.kind in "ej":
+                            # and the complex power it delivers, `-se`, in
+                            # line with the real power above it (Roberto,
+                            # 13 Sep 2026); `s_e` itself stays consumed.
+                            plain, latex = fmt(-values[key], unit)
+                            items.append({"sym": "-s", "label": "complex power delivered",
                                           "plain": plain, "latex": latex})
                         elif symbol == "p" and pattern == "p_{n}" and el.kind in "ej":
                             # #434 (Roberto, 13 Sep 2026): a source's card
@@ -2833,7 +2843,7 @@ def solve_ui(desc: str, domain: str, omega: str, variables,
                         if s_ac is not None and not s_ac.free_symbols and s_ac != 0:
                             magnitude, direction = _pf_reading(complex(s_ac), digits or 4)
                             body = f"{magnitude} {direction}".strip()
-                            items.append({"sym": "pf", "label": "power factor",
+                            items.append({"sym": "pf", "label": "delivered — power factor",
                                           "plain": body,
                                           "latex": rf"\text{{{body}}}"})
                 if items:

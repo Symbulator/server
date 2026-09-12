@@ -16,7 +16,7 @@ r7,1,0,24
 analysis: dc
 note: Find the current i_o and the voltage v_o for the circuit in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex3-7.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -36,7 +36,7 @@ solve_conditions: R_3=10
 solve_real_only: yes
 note: For the Wheatstone bridge in the figure, R_3 can be varied from 10 Ω to 2 kΩ. What range of resistor values can this bridge measure?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex3-10.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -53,7 +53,7 @@ r6,4,0,37.5
 analysis: dc
 note: Find the current and power supplied by the 40 V source in the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex3-11.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -70,7 +70,7 @@ e2,4,0,8*ir3
 analysis: dc
 note: Find the power dissipated in the 5 Ω resistor in the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-4.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -86,7 +86,7 @@ e2,3,0,15*ir4
 analysis: dc
 note: Find the power dissipated in the 4 Ω resistor in the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-7.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -101,7 +101,7 @@ j,0,2,3
 analysis: dc
 note: Find the branch currents i_a, i_b and i_c in the circuit for Example 4.3, repeated here in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-8.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -119,7 +119,7 @@ r6,3,0,15
 analysis: dc
 note: a) Find the voltage v_o in the circuit shown in the figure. b) Find the power developed by the 250 V voltage source. c) Find the power developed by the 8 A current source.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-13.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -135,7 +135,7 @@ n1: 2
 n2: 0
 note: a) For the circuit shown in the figure, find the value of R_L that results in maximum power being transferred to R_L. b) Calculate the maximum power that can be delivered to R_L.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-21.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -152,7 +152,7 @@ e2,0,c,2*ir1
 analysis: dc
 note: Find v_o in the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex4-23.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -171,7 +171,7 @@ solve_conditions: va=1.5
 solve_real_only: yes
 note: The op amp in the circuit shown in the figure is ideal. a) Calculate v_o if v_a = 1 V and v_b = 0 V. b) Repeat (a) for v_a = 1 V and v_b = 2 V. c) If v_a = 1.5 V, specify the range of v_b that avoids amplifier saturation.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-1.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -194,7 +194,7 @@ solve_conditions: vc=-1
 solve_real_only: yes
 note: a) Design a summing amplifier whose output voltage is v_o = -4v_a - v_b - 5v_c, using an ideal op amp with ±12 V power supplies and a 20 kΩ feedback resistor. b) Suppose v_a = 2 V and v_c = -1 V. What range of input voltages for v_b allows the op amp to remain linear?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-3.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -215,7 +215,7 @@ solve_unknowns: rf
 solve_real_only: yes
 note: c) Suppose v_a = 2 V, v_b = 3 V and v_c = -1 V. Using the input resistor values found in part (a), how large can the feedback resistor be before the op amp saturates?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-3.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -236,7 +236,7 @@ solve_conditions: va=1
 solve_real_only: yes
 note: a) Design a difference amplifier that amplifies the difference between two input voltages by a gain of 8, using an ideal op amp and ±8 V power supplies. b) Suppose v_a = 1 V. What range of v_b keeps the op amp linear?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-5.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -253,7 +253,7 @@ ea,4,0,50000*(vp-vn)
 analysis: dc
 note: Analyze the noninverting amplifier of Example 5.4 using the realistic op amp model, with open-loop gain A = 50,000, input resistance R_i = 100 kΩ and output resistance R_o = 7.5 kΩ; there is no load resistance at the output. Find the gain v_o/v_g.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-7.jpg
-rounding: 6
+rounding: 5
 si: no
 units: yes
 
@@ -270,7 +270,7 @@ n1: 1
 n2: 2
 note: Find the z parameters for the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex18-1.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -285,7 +285,7 @@ rl,c,0,10'k
 analysis: dc
 note: Two identical amplifiers are connected in cascade. Each is described by its h parameters: h_11 = 1000 Ω, h_12 = 0.0015, h_21 = 100, h_22 = 100 µS. The source has 500 Ω of internal resistance and the load is 10 kΩ. Find the voltage gain V_2/V_g.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex18-6.jpg
-rounding: 6
+rounding: 7
 si: no
 units: yes
 
@@ -302,7 +302,7 @@ analysis: dc
 note: The switch in the circuit shown in the figure has been closed for a long time before it is opened at t = 0. Find a) i_L(t) for t ≥ 0, b) i_o(t) for t ≥ 0+, c) v_o(t) for t ≥ 0+.
 note: This is the circuit before the switch opens, run in DC to find the inductor's current, which the next entry takes as its initial condition.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-1.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -317,7 +317,7 @@ analysis: tr
 note: The switch in the circuit shown in the figure has been closed for a long time before it is opened at t = 0. Find a) i_L(t) for t ≥ 0, b) i_o(t) for t ≥ 0+, c) v_o(t) for t ≥ 0+.
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-1.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -331,7 +331,7 @@ analysis: dc
 note: The switch in the circuit shown in the figure has been in position x for a long time. At t = 0 it moves instantaneously to position y. Find a) v_C(t) for t ≥ 0, b) v_o(t) for t ≥ 0+, and c) i_o(t) for t ≥ 0+.
 note: This is the circuit at position x, before the switch moves, run in DC to find the capacitor's voltage, which the next entry takes as its initial condition.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-3.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -346,7 +346,7 @@ analysis: tr
 note: The switch in the circuit shown in the figure has been in position x for a long time. At t = 0 it moves instantaneously to position y. Find a) v_C(t) for t ≥ 0, b) v_o(t) for t ≥ 0+, and c) i_o(t) for t ≥ 0+.
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-3.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -360,7 +360,7 @@ analysis: dc
 note: The switch in the circuit shown in the figure has been in position a for a long time. At t = 0 it moves from position a to position b. The switch is a make-before-break type, so the inductor current is continuous. a) Find the expression for i(t) for t ≥ 0. b) What is the initial voltage across the inductor just after the switch has been moved to position b?
 note: This is the circuit at position a, before the switch moves, run in DC to find the inductor's current, which the next entry takes as its initial condition.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-5.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -374,7 +374,7 @@ analysis: tr
 note: The switch in the circuit shown in the figure has been in position a for a long time. At t = 0 it moves from position a to position b. The switch is a make-before-break type, so the inductor current is continuous. a) Find the expression for i(t) for t ≥ 0. b) What is the initial voltage across the inductor just after the switch has been moved to position b?
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-5.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -389,7 +389,7 @@ m,l1,l2,6
 analysis: tr
 note: There is no energy stored in the circuit in the figure at the time the switch is closed. Find the solutions for i_o, v_o, i_1 and i_2.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-10.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -407,7 +407,7 @@ analysis: dc
 note: The two switches in the circuit shown in the figure have been closed for a long time. At t = 0 switch 1 is opened; then, 35 ms later, switch 2 is opened. a) Find i_L(t) for 0 ≤ t ≤ 35 ms.
 note: This is the circuit with both switches closed, run in DC to find the inductor's current, which the next entry takes as its initial condition.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-11.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -422,7 +422,7 @@ analysis: tr
 note: The two switches in the circuit shown in the figure have been closed for a long time. At t = 0 switch 1 is opened; then, 35 ms later, switch 2 is opened. a) Find i_L(t) for 0 ≤ t ≤ 35 ms.
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-11.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -435,7 +435,7 @@ l,3,0,0.15,6*exp(-1.4)
 analysis: tr
 note: b) Find i_L(t) for t ≥ 35 ms. (Time is measured from the second switching.)
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-11.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -452,7 +452,7 @@ solve_unknowns: t
 solve_real_only: yes
 note: a) When the switch is closed in the circuit shown in the figure, the voltage on the capacitor is 10 V. Find the expression for v_o for t ≥ 0. b) Assume that the capacitor short-circuits when its terminal voltage reaches 150 V. How many milliseconds elapse before the capacitor short-circuits?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-13.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -465,7 +465,7 @@ r,1,0,200
 analysis: tr
 note: For the circuit in the figure, v(0^+) = 12 V and i_L(0^+) = 30 mA. Find the expression for v(t). (Example 8.3 asks the same circuit for its three branch currents.)
 image: https://learn.symbulator.com/assets/circuit/nr12-ex8-2.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -478,7 +478,7 @@ r,1,0,20'k
 analysis: tr
 note: In the circuit shown in the figure, V_0 = 0 and I_0 = -12.25 mA. Calculate the voltage response for t ≥ 0.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex8-4.jpg
-rounding: 6
+rounding: 5
 si: no
 units: yes
 
@@ -491,7 +491,7 @@ r,2,0,560
 analysis: tr
 note: The 0.1 µF capacitor in the circuit shown in the figure is charged to 100 V. At t = 0 the capacitor is discharged through a series combination of a 100 mH inductor and a 560 Ω resistor. a) Find i(t) for t ≥ 0. b) Find v_C(t) for t ≥ 0.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex8-11.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -505,7 +505,7 @@ c,3,0,0.4'u
 analysis: tr
 note: No energy is stored in the 100 mH inductor or the 0.4 µF capacitor when the switch in the circuit shown in the figure is closed. Find v_C(t) for t ≥ 0.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex8-12.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -520,7 +520,7 @@ r2,3,0,48
 analysis: tr
 note: The circuit in the figure has no initial stored energy. At t = 0 the switch closes. Find i_1(t) and i_2(t) for t ≥ 0.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-5.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -539,7 +539,7 @@ analysis: dc
 note: The make-before-break switch in the circuit in the figure has been in position a for a long time. At t = 0 it moves instantaneously to position b. Find i_2(t) for t ≥ 0.
 note: This is the circuit at position a, before the switch moves, run in DC to find the two coil currents, which the next entry takes as its initial conditions.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-7.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -556,7 +556,7 @@ analysis: tr
 note: The make-before-break switch in the circuit in the figure has been in position a for a long time. At t = 0 it moves instantaneously to position b. Find i_2(t) for t ≥ 0.
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-7.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -572,7 +572,7 @@ analysis: dc
 note: The switch in the circuit shown in the figure has been closed for a long time. At t = 0 it opens. Find the output voltage v_o and the current in the 3 H inductor, i_1.
 note: This is the circuit with the switch closed, run in DC to find the two inductor currents, which the next entry takes as its initial conditions.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-13.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -588,7 +588,7 @@ analysis: tr
 note: The switch in the circuit shown in the figure has been closed for a long time. At t = 0 it opens. Find the output voltage v_o and the current in the 3 H inductor, i_1.
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-13.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -604,7 +604,7 @@ analysis: ac
 omega: 200000
 note: The sinusoidal current source in the circuit shown in the figure produces the current i_s = 8 cos 200,000t A. b) Find the equivalent admittance to the right of the current source. c) Find the phasor voltage V. d) Find the phasor current I. e) Find the steady-state expressions for v and i.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex9-9.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 rms: no
@@ -623,7 +623,7 @@ analysis: ac
 omega: omega
 note: Find I_0, I_1, I_2, I_3, I_4, I_5, V_1 and V_2 in the circuit in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex9-10.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 rms: no
@@ -645,7 +645,7 @@ n2: 0
 omega: omega
 note: Find the Thevenin equivalent circuit with respect to terminals a,b for the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex9-12.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 rms: no
@@ -666,7 +666,7 @@ analysis: ac
 omega: omega
 note: Find the voltages V_1, V_2 and V_3 in the circuit shown in the figure.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex9-14.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 rms: no
@@ -690,7 +690,7 @@ n2: d
 omega: omega
 note: A linear transformer has R_1 = 200 Ω, R_2 = 100 Ω, L_1 = 9 H, L_2 = 4 H and k = 0.5, and couples a load of an 800 Ω resistor in series with a 1 µF capacitor to a 300 V (rms) source of internal impedance 500 + j100 Ω at 400 rad/s. g) Calculate the Thevenin equivalent with respect to the terminals of the load impedance.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex9-15.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 rms: yes
@@ -711,7 +711,7 @@ analysis: ac
 omega: omega
 note: a) Calculate the total average and reactive power delivered to each impedance in the circuit shown in the figure. b) Calculate the average and reactive powers associated with each source. c) Verify that the average power delivered equals the average power absorbed, and likewise for the reactive power.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex10-8.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 rms: no
@@ -731,7 +731,7 @@ n2: 0
 omega: omega
 note: The variable resistor in the circuit in the figure is adjusted until maximum average power is delivered to R_L. a) What is the value of R_L in ohms? b) What is the maximum average power delivered to R_L?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex10-12.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 rms: yes
@@ -756,7 +756,7 @@ analysis: ac
 omega: omega
 note: A balanced, positive-sequence Y-connected generator with an internal impedance of 0.2 + j0.5 Ω per phase and an internal voltage of 120 V per phase feeds a balanced Y-connected load of 39 + j28 Ω per phase over a line of 0.8 + j1.5 Ω per phase; the a-phase internal voltage is the reference. b) Calculate the three line currents. c) Calculate the phase voltages at the load. d) Calculate the line voltages at the load. e) Calculate the phase voltages at the generator terminals.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex11-1.jpg
-rounding: 6
+rounding: 5
 si: no
 units: yes
 rms: no
@@ -772,7 +772,7 @@ analysis: dc
 note: The circuit in the figure is the circuit of Example 7.3. Find v_o(t) for t ≥ 0+.
 note: This is the circuit at position x, before the switch moves, run in DC to find the capacitor's voltage, which the next entry takes as its initial condition.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-2.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -787,7 +787,7 @@ analysis: fd
 note: The circuit in the figure is the circuit of Example 7.3. Find v_o(t) for t ≥ 0+.
 note: This is the circuit after the switch has moved; its initial condition comes from the entry before it.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-2.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -801,7 +801,7 @@ r,1,0,500
 analysis: fd
 note: Consider the circuit in the figure, where the initial current in the inductor is 29 mA and the initial voltage across the capacitor is 50 V. Find v(t) for t ≥ 0.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-3.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -818,7 +818,7 @@ n1: a
 n2: 0
 note: The circuit in the figure has no initial stored energy, and at t = 0 the switch closes. Find the Thevenin equivalent for the circuit to the left of the terminals a and b in the s domain.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-6.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -835,7 +835,7 @@ solve_equations: s**2+6000*s+25000000=0
 solve_unknowns: s
 note: The voltage source v_g drives the circuit shown in the figure. The output signal is the voltage across the capacitor, v_o. a) Find the transfer function for this circuit. b) Calculate the numerical values for the poles and zeros of the transfer function.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-9.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes
 
@@ -854,6 +854,6 @@ solve_conditions: C=5'u
 solve_real_only: yes
 note: a) Show that the RLC circuit in the figure is a bandpass filter by deriving an expression for the transfer function H(s). b) Compute the centre frequency. c) Calculate the cutoff frequencies, the bandwidth and Q. d) Compute R and L for a centre frequency of 5 kHz and a bandwidth of 200 Hz, using a 5 µF capacitor.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex14-6.jpg
-rounding: 6
+rounding: 4
 si: no
 units: yes

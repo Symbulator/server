@@ -884,8 +884,9 @@ def srv_vocabulary() -> set:
     # A source's card: the power it delivers (#434) and, in AC, the power
     # factor of that power (#435) -- built inline in the element loop.
     words.add("power delivered")
-    words.add("average power delivered")
-    words.add("power factor")
+    words.add("real power delivered")
+    words.add("complex power delivered")
+    words.add("delivered — power factor")
     return words
 
 
