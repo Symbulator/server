@@ -165,6 +165,10 @@ eb,4,0,vb
 o,4,2,3
 
 analysis: dc
+solve_equations: v_3=10
+solve_unknowns: vb
+solve_conditions: va=1.5
+solve_real_only: yes
 note: The op amp in the circuit shown in Fig. 5.7 is ideal. a) Calculate v_o if v_a = 1 V and v_b = 0 V. b) Repeat (a) for v_a = 1 V and v_b = 2 V. c) If v_a = 1.5 V, specify the range of v_b that avoids amplifier saturation.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-1.jpg
 rounding: 6
@@ -183,13 +187,18 @@ rf,n,4,20'k
 o,0,n,4
 
 analysis: dc
+solve_equations: v_4=-12
+solve_unknowns: vb
+solve_conditions: va=2
+solve_conditions: vc=-1
+solve_real_only: yes
 note: a) Design a summing amplifier whose output voltage is v_o = -4v_a - v_b - 5v_c, using an ideal op amp with ±12 V power supplies and a 20 kΩ feedback resistor. b) Suppose v_a = 2 V and v_c = -1 V. What range of input voltages for v_b allows the op amp to remain linear?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-3.jpg
 rounding: 6
 si: no
 units: yes
 
-[NR12's Example 5.3 part c (DC, Expert Mode)]
+[NR12's Example 5.3 part c (DC)]
 
 ea,1,0,2
 eb,2,0,3
@@ -201,8 +210,9 @@ rf,n,4,rf
 o,0,n,4
 
 analysis: dc
-equations: v_4 = -12
-unknowns: rf
+solve_equations: v_4=-12
+solve_unknowns: rf
+solve_real_only: yes
 note: c) Suppose v_a = 2 V, v_b = 3 V and v_c = -1 V. Using the input resistor values found in part (a), how large can the feedback resistor be before the op amp saturates?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-3.jpg
 rounding: 6
@@ -220,6 +230,10 @@ rd,p,0,12'k
 o,p,n,3
 
 analysis: dc
+solve_equations: v_3=8
+solve_unknowns: vb
+solve_conditions: va=1
+solve_real_only: yes
 note: a) Design a difference amplifier that amplifies the difference between two input voltages by a gain of 8, using an ideal op amp and ±8 V power supplies. b) Suppose v_a = 1 V. What range of v_b keeps the op amp linear?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-5.jpg
 rounding: 6
@@ -433,6 +447,9 @@ r2,1,0,20'k
 j,0,1,7*ir2
 
 analysis: tr
+solve_equations: v_1=150
+solve_unknowns: t
+solve_real_only: yes
 note: a) When the switch is closed in the circuit shown in Fig. 7.45, the voltage on the capacitor is 10 V. Find the expression for v_o for t ≥ 0. b) Assume that the capacitor short-circuits when its terminal voltage reaches 150 V. How many milliseconds elapse before the capacitor short-circuits?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex7-13.jpg
 rounding: 6
@@ -814,6 +831,8 @@ l,3,0,50'm
 c,2,0,1'u
 
 analysis: fd
+solve_equations: s**2+6000*s+25000000=0
+solve_unknowns: s
 note: The voltage source v_g drives the circuit shown in Fig. 13.31. The output signal is the voltage across the capacitor, v_o. a) Find the transfer function for this circuit. b) Calculate the numerical values for the poles and zeros of the transfer function.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex13-9.jpg
 rounding: 6
@@ -828,6 +847,11 @@ c,2,0,C
 l,2,0,L
 
 analysis: fd
+solve_equations: 1/sqrt(L*C)=2*pi*5000
+solve_equations: 1/(R*C)=2*pi*200
+solve_unknowns: L, R
+solve_conditions: C=5'u
+solve_real_only: yes
 note: a) Show that the RLC circuit in Fig. 14.22 is a bandpass filter by deriving an expression for the transfer function H(s). b) Compute the centre frequency. c) Calculate the cutoff frequencies, the bandwidth and Q. d) Compute R and L for a centre frequency of 5 kHz and a bandwidth of 200 Hz, using a 5 µF capacitor.
 image: https://learn.symbulator.com/assets/circuit/nr12-ex14-6.jpg
 rounding: 6
