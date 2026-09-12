@@ -234,7 +234,7 @@ solve_equations: v_3=8
 solve_unknowns: vb
 solve_conditions: va=1
 solve_real_only: yes
-note: a) Design a difference amplifier that amplifies the difference between two input voltages by a gain of 8, using an ideal op amp and ±8 V power supplies. b) Suppose v_a = 1 V. What range of v_b keeps the op amp linear?
+note: a) You have designed a difference amplifier, as per the problem's specifications. Verify that it amplifies the difference between two input voltages by a gain of 8, using an ideal op amp and ±8 V power supplies. b) Suppose v_a = 1 V. What range of v_b keeps the op amp linear?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-5.jpg
 rounding: 4
 si: no
