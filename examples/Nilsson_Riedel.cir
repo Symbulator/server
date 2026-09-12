@@ -192,7 +192,7 @@ solve_unknowns: vb
 solve_conditions: va=2
 solve_conditions: vc=-1
 solve_real_only: yes
-note: a) Design a summing amplifier whose output voltage is v_o = -4v_a - v_b - 5v_c, using an ideal op amp with ±12 V power supplies and a 20 kΩ feedback resistor. b) Suppose v_a = 2 V and v_c = -1 V. What range of input voltages for v_b allows the op amp to remain linear?
+note: a) You have designed a summing amplifier, as per the problem's specifications. Verify that its output voltage is v_o = -4v_a - v_b - 5v_c, using an ideal op amp with ±12 V power supplies and a 20 kΩ feedback resistor. b) Suppose v_a = 2 V and v_c = -1 V. What range of input voltages for v_b allows the op amp to remain linear?
 image: https://learn.symbulator.com/assets/circuit/nr12-ex5-3.jpg
 rounding: 4
 si: no
