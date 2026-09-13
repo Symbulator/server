@@ -2825,18 +2825,6 @@ units: yes</pre>
       </div>
     </div>
 
-    <div class="row">
-      <div id="varsField">
-        <label class="checkline"><input type="checkbox" id="limitVars"><span data-i18n="do-you-want-to.c926">Do you
-          want to limit the results to save time?</span></label>
-        <div id="varsSubfield" style="display:none;margin-top:.5rem">
-          <label for="vars" data-i18n="what-results-are-you.9954">What results are you after? List the variables here:
-            <span class="hint">e.g. v2, il1</span></label>
-          <input type="text" id="vars" placeholder="v2, il1" data-i18n-placeholder="v-il.3c64">
-        </div>
-      </div>
-    </div>
-
     <details id="settingsBox" style="margin-top:.9rem">
       <summary data-i18n="settings.c7f7">Settings</summary>
 
@@ -2922,6 +2910,22 @@ units: yes</pre>
           <label class="checkline" id="rmsLine"><input type="checkbox" id="useRms"><span data-i18n="rms-phasors-off-means.e4c8">RMS
             phasors <span class="hint">— off means peak amplitude (the ÷2 convention);
             affects AC power only</span></span></label>
+        </div>
+      </div>
+
+      <!-- The TR-only "limit the results" tick lives in Settings since
+           13 Sep 2026 (Roberto): it is a setting, not an input. The row
+           hides outside TR, as it always did (#varsField in the CSS and
+           syncTool()); its ids and i18n keys are unchanged. -->
+      <div class="row">
+        <div id="varsField">
+          <label class="checkline"><input type="checkbox" id="limitVars"><span data-i18n="do-you-want-to.c926">Do you
+            want to limit the results to save time?</span></label>
+          <div id="varsSubfield" style="display:none;margin-top:.5rem">
+            <label for="vars" data-i18n="what-results-are-you.9954">What results are you after? List the variables here:
+              <span class="hint">e.g. v2, il1</span></label>
+            <input type="text" id="vars" placeholder="v2, il1" data-i18n-placeholder="v-il.3c64">
+          </div>
         </div>
       </div>
     </details>
@@ -3739,7 +3743,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-12 22:53 UTC</span>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-13 01:19 UTC</span>
 </footer>
 
 <script>
