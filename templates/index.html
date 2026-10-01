@@ -1398,9 +1398,10 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
      emphasis for a temporary mark. Inherits everything else, so it stays
      the same colour, face and slant.
 
-     Both consumers that draw a beta carry the span: the app's wordmark and
-     the landing page's. #137 removes the mark when 9 leaves beta, and this
-     rule goes with it. */
+     Since #471 (1 Oct 2026) no property draws one: versions 9 and 8 left
+     beta, and the app's BRAND_BETA and the landing page's span went with
+     it. The rule stays for the app's slot in branding.py, so that a fork
+     or a later version can be marked again without a stylesheet change. */
   .brand-name .tm .beta { font-size: 0.8em; }
   .brand-sub {
     margin: 0.4rem 0 0; font-family: var(--banner-sans);
@@ -2199,9 +2200,9 @@ window.SYMB_I18N_CODES = ["bn","de","eo","es","fr","hi","id","ja","ko","pt","uk"
         <img src="/static/logo.png" alt="Symbulator logo" class="header-logo" data-i18n-alt="symbulator-logo.bc79">
       </a>
       <div class="header-title">
-        <!-- The β is temporary (Roberto, 28 Aug 2026): version 9 is in
-             beta, and the numeral says so until it is not. Banner
-             wordmark only -- nowhere else. -->
+        <!-- A beta mark after the numeral is drawn only when branding.py's
+             BRAND_BETA is set. Version 9 carried a β from its public launch
+             (28 Aug 2026) until #471 (1 Oct 2026), when it left beta. -->
         <h1 class="brand-name notranslate">Symbulator <span class="tm"{% if brand_tm_color %} style="color: {{ brand_tm_color }}"{% endif %}>{{ brand_tm }}{% if brand_beta %}<span class="beta">{{ brand_beta }}</span>{% endif %}</span></h1>
         <!-- #228: the subtitle. Empty brand_sub means version 9, whose
              subtitle is a translated UI string and must stay one; a fork
@@ -3759,7 +3760,7 @@ units: yes</pre>
        server's /healthz reads it with _BUILD_RE, both keyed on the
        word Release, and each expects it exactly once in this file. -->
   <span class="notranslate" style="white-space:nowrap">Symbulator by Roberto Perez-Franco (1999–2026)</span>
-  <span class="notranslate" style="white-space:nowrap">· Release 2026-09-21 10:34 UTC</span>
+  <span class="notranslate" style="white-space:nowrap">· Release 2026-10-01 00:18 UTC</span>
 </footer>
 
 <script>
